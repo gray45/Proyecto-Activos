@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="activos.logic.Solicitud" table="solicitud" catalog="activos" optimistic-lock="version">
+        <id name="idSolicitud" type="java.lang.Integer">
+            <column name="idSolicitud" />
+            <generator class="identity" />
+        </id>
+        <property name="dependencia" type="java.lang.Integer">
+            <column name="Dependencia_id" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
+        <property name="comprobante" type="string">
+            <column name="comprobante" length="45" not-null="true" />
+        </property>
+        <property name="fecha" type="string">
+            <column name="fecha" length="45" not-null="true" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="45" not-null="true" />
+        </property>
+        <property name="rasonRechazo" type="string">
+            <column name="rasonRechazo" length="45" />
+        </property>
+        <property name="dependecia" type="string">
+            <column name="dependecia" length="45" not-null="true" />
+        </property>
+        <property name="registrador" type="string">
+            <column name="registrador" length="45" not-null="true" />
+        </property>
+        <set name="biens" table="bien" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Solicitud_idSolicitud" not-null="true" />
+            </key>
+            <one-to-many class="activos.logic.Bien" />
+        </set>
+    </class>
+</hibernate-mapping>

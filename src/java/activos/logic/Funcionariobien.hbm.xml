@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="activos.logic.Funcionariobien" table="funcionariobien" catalog="activos" optimistic-lock="version">
+        <id name="codigo" type="string">
+            <column name="codigo" length="45" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="bien" class="activos.logic.Bien" fetch="select">
+            <column name="Bien_idBien" not-null="true" />
+        </many-to-one>
+        <many-to-one name="funcionario" class="activos.logic.Funcionario" fetch="select">
+            <column name="Funcionario_idFuncionario" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

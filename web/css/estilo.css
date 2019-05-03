@@ -1,0 +1,137 @@
+#body {
+    background-color: black;
+}
+
+.inicio {
+    background-color: whitesmoke;
+}
+
+
+.div1 {
+    height: 110px;
+    width: auto;
+    background-color: darkslategrey ;
+
+}
+
+
+.contenedor {
+
+
+    border-radius: 8px 8px 8px 8px;
+    -moz-border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    margin: 5px 5px 5px 5px;
+    border: lightgray 1px solid;
+    padding: 5px 5px 5px 5px;
+}
+
+
+.titulo {
+    padding: 10px 90px;
+    margin-top: 50px;
+}
+
+#head {
+    padding: 30px 10px;
+    font-size: large;
+    background-color: black;
+    display: block; 
+    border-bottom: 0px ; 
+    height:75px; 
+    width:100%;
+}
+
+#img {
+    width: 160px;
+    height: 100px;
+    padding: 15px 900px;
+}
+
+#lista {
+    font-size: large;
+}
+
+.a1{
+    color: ghostwhite;
+}
+.a2 {
+    color: ghostwhite;
+}
+
+.div3Inferior {
+    bottom: 0;
+    height: 34px;
+    padding: 13px 0 4px;
+    position: fixed;
+    width: 100%;
+    z-index: 5000;
+    background-color: darkslategrey;
+    font-size: large;
+}
+
+.a3 {
+    padding: 0 600px;
+}
+.login{
+    border-radius: 6px 6px 6px 6px;
+    background-color: #E8E8EB;
+    margin: 10px 25px 25px 10px;
+
+}
+
+.inputForm{
+    border-radius: 3px 3px 3px 3px;
+    margin: 10px 25px 25px 10px;
+
+}
+.submitButton{
+    border-radius: 3px 3px 3px 3px;    
+    margin: 10px 10px 10px 10px;
+
+}
+.bodySoli {
+
+}
+
+.escondida{
+    display: none;
+}
+
+th{
+    background-color: black;
+    color: white ;
+}
+
+.boton {
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    border: 0px solid #000000;
+    background-color: #1cbc29;
+    color:whitesmoke
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
