@@ -51,11 +51,14 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.fecha + "</td>"));
     row.append($("<td>" + rowData.tipo + "</td>"));
     row.append($("<td> <i class='fas fa-check-circle  btn-md Aprobada' onclick='mostrarModal()'></i>&nbsp;&nbsp" + rowData.estado + "</td>"));
-    row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle()">' +
+    row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle('+ rowData.idSolicitud + ')">' +
             '<i class="fas fa-info-circle " style="color : blue;" aria-hidden="true"></i></td>'));
 }
 
 
+function detalle(idSolicitud){
+ location.href = "Controller/SolicitudController?action=detalle&&id=" + idSolicitud;
+}
 
 function paginador(pagAct, tam) {
     var ini = 1;
@@ -99,6 +102,16 @@ function buscar(numPage) {
 
 }
 
-function mostrarModal() {
+function mostrarModal(id) {
     $('#modalLoginForm').modal('show');
+    $("#idSolicitud").val(id);
+}
+
+
+function changeState(state){
+   
+}
+
+function rechazar(state){
+    
 }

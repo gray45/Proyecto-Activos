@@ -55,7 +55,7 @@ public class SecretariaController extends HttpServlet {
                         Solicitud solicitud = dao.findByID(Integer.parseInt(idSolicitud));
                         solicitud.setEstado(state);
                         dao.merge(solicitud);
-
+                        String estado = "bien";
                         json = new Gson().toJson(utils.findAll());
 
                         // response.setContentType("application/json; charset=UTF-8");

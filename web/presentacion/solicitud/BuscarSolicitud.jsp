@@ -84,13 +84,18 @@
                         </div>
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
-                                <i class=" fas fa-check-circle  btn-lg Aprobada prefix " onclick="changeState('Aprobada')"></i>
+                                <i class=" fas fa-check-circle  btn-lg Aprobada prefix " onclick="changeState('Verificar')"></i>
                                 <h3 style="display: inline" >Aprobar</h3>
                             </div>
 
                             <div class="md-form mb-4">
                                 <i class="fas fa-check-circle  btn-lg Rechazada prefix" onclick="changeState('Rechazada')"></i>
                                 <h3 style="display: inline">Rechazar</h3>
+                            </div>
+                            
+                            <div id="divTextArea" class="md-form mb-4 form-group escondida" >
+                                <label>Razon de Rechazo :</label>
+                                <textarea id="razon" class="form-control"></textarea>
                             </div>
 
                         </div>
@@ -100,6 +105,7 @@
                     </div>
                 </div>
             </div>
+            
 
         </div>
     </body>
