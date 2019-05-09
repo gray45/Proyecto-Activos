@@ -33,7 +33,6 @@ public class Solicitud  implements java.io.Serializable {
      private String rasonRechazo;
      private String dependecia;
      private String registrador;
-     private Set biens = new HashSet(0);
 
     public Solicitud() {
     }
@@ -48,17 +47,7 @@ public class Solicitud  implements java.io.Serializable {
         this.dependecia = dependecia;
         this.registrador = registrador;
     }
-    public Solicitud(Integer dependencia, String estado, String comprobante, String fecha, String tipo, String rasonRechazo, String dependecia, String registrador, Set biens) {
-       this.dependencia = dependencia;
-       this.estado = estado;
-       this.comprobante = comprobante;
-       this.fecha = fecha;
-       this.tipo = tipo;
-       this.rasonRechazo = rasonRechazo;
-       this.dependecia = dependecia;
-       this.registrador = registrador;
-       this.biens = biens;
-    }
+ 
    @Id @GeneratedValue(strategy=IDENTITY)
 
     
@@ -129,13 +118,7 @@ public class Solicitud  implements java.io.Serializable {
     public void setRegistrador(String registrador) {
         this.registrador = registrador;
     }
-    public Set getBiens() {
-        return this.biens;
-    }
-    
-    public void setBiens(Set biens) {
-        this.biens = biens;
-    }
+   
 
 
 }

@@ -130,7 +130,7 @@ public class SolicitudController extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
 
             Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
-                    "Recibidad", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
+                    "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
             SolicitudDao dao = new SolicitudDao();
             dao.save(unaSolicitud);
 

@@ -3,25 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.SecretariaOccb;
+package Controller;
 
 import Dao.SolicitudDao;
+import Utils.Utils;
 import activos.logic.Solicitud;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Anthony
+ * @author grave
  */
-@WebServlet(name = "SolicitudController", urlPatterns = {"/Controller/SecretariaOccb/SolicitudController"})
-public class SolicitudController extends HttpServlet {
+@WebServlet(name = "SecretariaController", urlPatterns = {"/SecretariaController"})
+public class SecretariaController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +38,54 @@ public class SolicitudController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String action = request.getParameter("action");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            try {
+                String json;
+                Utils utils = new Utils();
+                HttpSession s = request.getSession(true);
+                String accion = request.getParameter("accion");
+                switch (accion) {
+                    case "changeState":
+                        String idSolicitud = request.getParameter("idSolicitud");
+                        String state = request.getParameter("state");
 
-        if (action.equals("Buscar")) {
-            this.buscarSolicitud(request, response);
+                        SolicitudDao dao = new SolicitudDao();
+                        Solicitud solicitud = dao.findByID(Integer.parseInt(idSolicitud));
+                        solicitud.setEstado(state);
+                        dao.merge(solicitud);
+
+                        json = new Gson().toJson(utils.findAll());
+
+                        // response.setContentType("application/json; charset=UTF-8");
+                        out.print(json);
+                        // response.setStatus(200);
+                        break;
+                    case "findAll":
+                        List<Solicitud> all = utils.findAll();
+                        json = new Gson().toJson(all);
+
+                        // response.setContentType("application/json; charset=UTF-8");
+                        out.print(json);
+                        break;
+
+                    case "buscar":
+
+                        String quest = request.getParameter("quest");
+                        json = new Gson().toJson(findByQuest(quest));
+
+                        // response.setContentType("application/json; charset=UTF-8");
+                        out.print(json);
+                        break;
+
+                    default:
+                        out.print("E~No se indico la acción que se desea realizar");
+                        break;
+                }
+            } catch (Exception e) {
+                out.print("E~" + e.getMessage());
+            }
         }
     }
 
@@ -80,36 +128,6 @@ public class SolicitudController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void buscarSolicitud(HttpServletRequest request, HttpServletResponse response) 
-          throws ServletException, IOException {
-        try {
-            String actionHide = request.getParameter("actionHide");
-            if (actionHide != null) {
-                if (actionHide.equals("find")) {
-                    String quest = request.getParameter("quest");
-                    request.setAttribute("solicitudes", findByQuest(quest));
-                }
-            }
-            else{
-            request.setAttribute("solicitudes", findAll());
-            }
-        } catch (Exception ex) {
-        }
-        request.getRequestDispatcher("/presentacion/solicitud/BuscarSolicitud.jsp").forward(request, response);
-    }
-    
-    
-     private List<Solicitud> findAll() {
-        List<Solicitud> solicitudes = null;
-        SolicitudDao dao = new SolicitudDao();
-        try {
-            solicitudes = dao.findAll();
-            return solicitudes;
-        } catch (Exception ex) {
-        }
-        return null;
-    }
-
     private List<Solicitud> findByQuest(String quest) {
         List<Solicitud> solicitudes = null;
         SolicitudDao dao = new SolicitudDao();
@@ -122,6 +140,4 @@ public class SolicitudController extends HttpServlet {
         }
         return null;
     }
-    
-
 }

@@ -25,11 +25,12 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
             <!-- NAVEBAR INICIO -->
             <% if (logged == null) { %>
             <li> <a  href="Controller/LoginController?action=prepareLogin">Ingresar</a> </li> 
-            <li> <a  href="Controller/UsuarioController">Registrarse</a> </li>                                         
+            <li> <a  href="Controller/UsuarioController">Registrarse</a> </li>   
                 <% }%>
 
             <%  if (logged != null) {  %>
 
+             <input type="text" value="<%= logged.getRol()%> " class="escondida"/>
 
             <!-- items del administrador de dependencia -->
             <% if (logged.getRol().equals("Administrador")) {%>  
@@ -58,7 +59,7 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
             <!--dropdown de la solicitud-->
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Solicitud<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li>  <a href="Controller/SecretariaOccb/SolicitudController?action=Buscar">Buscar Solicitud</a>     </li>
+                    <li>  <a href="Controller/SecretariaOccd/SolicitudController?action=Buscar">Buscar Solicitud</a>     </li>
                  </ul>
             </li>
 
@@ -89,7 +90,8 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
 
 
         </ul>
-    </div>
+           
+            
 </nav>
 
 

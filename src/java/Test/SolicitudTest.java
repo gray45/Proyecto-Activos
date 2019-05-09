@@ -34,7 +34,7 @@ public class SolicitudTest {
         usuarios = bl.findAll();
         // usuarios = bl.findAll();
         usuarios.forEach((aux) -> {
-            System.out.println(aux.getRegistrador());
+            System.out.println(aux.getComprobante());
         });
         
        

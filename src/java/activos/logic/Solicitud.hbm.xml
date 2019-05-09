@@ -32,11 +32,6 @@
         <property name="registrador" type="string">
             <column name="registrador" length="45" not-null="true" />
         </property>
-        <set name="biens" table="bien" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Solicitud_idSolicitud" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Bien" />
-        </set>
+        
     </class>
 </hibernate-mapping>

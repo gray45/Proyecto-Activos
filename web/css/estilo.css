@@ -103,6 +103,18 @@ th{
     color: white ;
 }
 
+.Aprobada{
+    color: green;
+}
+
+.Recibida{
+    color: blue;
+}
+
+.Rechazada{
+    color: red;
+}
+
 .boton {
     border-radius: 200px 200px 200px 200px;
     -moz-border-radius: 200px 200px 200px 200px;
@@ -134,4 +146,8 @@ th{
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+#azul{
+    color: blue;
 }
