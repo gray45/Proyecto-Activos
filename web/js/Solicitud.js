@@ -115,3 +115,25 @@ function changeState(state){
 function rechazar(state){
     
 }
+
+/*function llenarAutoCompleteUsuario(data) {
+ var opcions = {
+ data,
+ getValue: "nombreUsuario",
+ 
+ list: {
+ match: {
+ enabled: true
+ }
+ },
+ template: {
+ type: "description",
+ fields: {
+ description: "nombre"
+ }
+ },
+ theme: "dark-light"
+ //gris oscuro
+ };
+ $("#buscarUsu").easyAutocomplete(opcions);
+ }*/
