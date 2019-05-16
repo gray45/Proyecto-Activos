@@ -50,7 +50,7 @@
                     </form>
                     <br>
                     <div class="card-body">
-                        <div>
+                        <div id="divConsejo" class="escondida">
                             <i class="fas fa-exclamation-triangle  btn-lg Verificar prefix"></i>
                             <h4 style="display: inline">Para cambiar el estado de la solicitud dar click en el check<i class="fas fa-check-circle  btn-lg prefix"></i> </h4>
                         </div>

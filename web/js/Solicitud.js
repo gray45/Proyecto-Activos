@@ -32,6 +32,10 @@ function findAll(numPage) {
 }
 
 function dibujarTabla(numpag, dataJson) {
+    var rol = $("#rol").val();
+    if(rol === "Secretaria "){
+        $("#divConsejo").show();
+    }
     $("#tbody").html("");
     var cont = 0;
     var i = 10 * (numpag - 1);
@@ -44,14 +48,20 @@ function dibujarTabla(numpag, dataJson) {
 function dibujarFila(rowData) {
     //Cuando dibuja la tabla en cada boton se le agrega la funcionalidad de cargar o eliminar la informacion
     //de una persona
+    var rol = $("#rol").val();
     var row = $('<tr />');
     $("#tbody").append(row);
     row.append($("<td>" + rowData.comprobante + "</td>"));
     row.append($("<td>" + rowData.dependecia + "</td>"));
     row.append($("<td>" + rowData.fecha + "</td>"));
     row.append($("<td>" + rowData.tipo + "</td>"));
-    row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
-            + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+    if (rol === "Secretaria ") {
+        row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
+                + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+    } else {
+        row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' >"
+                + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+    }
     row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle(' + rowData.idSolicitud + ')">' +
             '<i class="fas fa-info-circle " style="color : blue;" aria-hidden="true"></i></td>'));
 }
@@ -146,7 +156,7 @@ function rechazar(state) {
 }
 
 function razonRechazo() {
-    if (validar()){
+    if (validar()) {
         var state = $("#estado").val();
         var razon = $("#razon").val();
         changeState(state, razon);
@@ -204,6 +214,9 @@ function getSolicitud(idSolicitud) {
                     $('#divTextArea').show();
                     $('#divRechazada').hide();
                     $('#confirmarRechazo').hide();
+                } else {
+                    $('#razon').val("");
+                    $('#divTextArea').hide();
                 }
             }
 

@@ -30,7 +30,7 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
 
             <%  if (logged != null) {  %>
 
-             <input type="text" value="<%= logged.getRol()%> " class="escondida"/>
+            <input type="text" value="<%= logged.getRol()%> " class="escondida" id="rol"/>
 
             <!-- items del administrador de dependencia -->
             <% if (logged.getRol().equals("Administrador")) {%>  
