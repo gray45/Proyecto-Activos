@@ -50,14 +50,15 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.dependecia + "</td>"));
     row.append($("<td>" + rowData.fecha + "</td>"));
     row.append($("<td>" + rowData.tipo + "</td>"));
-    row.append($("<td> <i class='fas fa-check-circle  btn-md Aprobada' onclick='mostrarModal()'></i>&nbsp;&nbsp" + rowData.estado + "</td>"));
-    row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle('+ rowData.idSolicitud + ')">' +
+    row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
+            + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+    row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle(' + rowData.idSolicitud + ')">' +
             '<i class="fas fa-info-circle " style="color : blue;" aria-hidden="true"></i></td>'));
 }
 
 
-function detalle(idSolicitud){
- location.href = "Controller/SolicitudController?action=detalle&&id=" + idSolicitud;
+function detalle(idSolicitud) {
+    location.href = "Controller/SolicitudController?action=detalle&&id=" + idSolicitud;
 }
 
 function paginador(pagAct, tam) {
@@ -105,15 +106,112 @@ function buscar(numPage) {
 function mostrarModal(id) {
     $('#modalLoginForm').modal('show');
     $("#idSolicitud").val(id);
+    $('#divRechazada').show();
+    getSolicitud(id);
 }
 
 
-function changeState(state){
-   
+function changeState(state, razon) {
+    $('#modalLoginForm').modal('hide');
+
+    $.ajax({
+
+        url: "SecretariaController",
+
+        data: {
+            accion: "changeState",
+            idSolicitud: $("#idSolicitud").val(),
+            state: state,
+            razon: razon
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información en la base de datos");
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function () { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            findAll(1);
+            $('#successModal').modal('show');
+
+        },
+        type: 'GET',
+        dataType: "json"
+    });
 }
 
-function rechazar(state){
-    
+function rechazar(state) {
+    $("#divTextArea").show();
+    $("#estado").val(state);
+    $('#divRechazada').hide();
+    $("#confirmarRechazo").show();
+}
+
+function razonRechazo() {
+    if (validar()){
+        var state = $("#estado").val();
+        var razon = $("#razon").val();
+        changeState(state, razon);
+        $("#divTextArea").hide();
+        $("#divAprobar").show();
+        $("#confirmarRechazo").hide();
+    }
+}
+
+function validar() {
+    var error = true;
+    $("#divMensaje").hide();
+    $("#divTextArea").removeClass("has-error");
+    var razon = $("#razon").val();
+    if (razon === "") {
+        $("#divTextArea").addClass("has-error");
+        $("#divMensaje").show();
+        error = false;
+    } else {
+        $("#divMensaje").hide();
+        error = true;
+    }
+    return error;
+}
+
+function salir() {
+    $("#razon").val("");
+    $("#divAprobar").show();
+    $('#divRechazada').show();
+    $("#divTextArea").hide();
+    $('#modalLoginForm').modal('hide');
+    $("#confirmarRechazo").hide();
+    $("#divTextArea").removeClass("has-error");
+    $("#divMensaje").hide();
+}
+
+function getSolicitud(idSolicitud) {
+    $.ajax({
+
+        url: "SecretariaController",
+
+        data: {
+            accion: "getSolicitud",
+            idSolicitud: idSolicitud
+        },
+        error: function () { //si existe un error en la respuesta del ajax
+            alert("Se presento un error a la hora de cargar la información en la base de datos");
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+
+            if (data.estado === "Rechazada") {
+                if (data.rasonRechazo != "" || data.rasonRechazo != undefined) {
+                    $('#razon').val(data.rasonRechazo);
+                    $('#divTextArea').show();
+                    $('#divRechazada').hide();
+                    $('#confirmarRechazo').hide();
+                }
+            }
+
+
+        },
+        type: 'GET',
+        dataType: "json"
+    });
 }
 
 /*function llenarAutoCompleteUsuario(data) {

@@ -103,16 +103,20 @@ th{
     color: white ;
 }
 
-.Aprobada{
-    color: green;
+.Verificar{
+    color: blue;
 }
 
 .Recibida{
-    color: blue;
+    color: yellow;
 }
 
 .Rechazada{
     color: red;
+}
+
+.Asignada{
+    color: green;
 }
 
 .boton {
@@ -150,4 +154,8 @@ th{
 
 #azul{
     color: blue;
+}
+
+.error{
+    box-shadow: 0 0 1px 1px red;
 }

@@ -50,12 +50,16 @@ public class SecretariaController extends HttpServlet {
                     case "changeState":
                         String idSolicitud = request.getParameter("idSolicitud");
                         String state = request.getParameter("state");
+                        String razon = request.getParameter("razon");
 
                         SolicitudDao dao = new SolicitudDao();
                         Solicitud solicitud = dao.findByID(Integer.parseInt(idSolicitud));
                         solicitud.setEstado(state);
+                        if(state.equals("Verificar")){
+                        razon = "";
+                        }
+                        solicitud.setRasonRechazo(razon);
                         dao.merge(solicitud);
-                        String estado = "bien";
                         json = new Gson().toJson(utils.findAll());
 
                         // response.setContentType("application/json; charset=UTF-8");
@@ -74,6 +78,15 @@ public class SecretariaController extends HttpServlet {
 
                         String quest = request.getParameter("quest");
                         json = new Gson().toJson(findByQuest(quest));
+
+                        // response.setContentType("application/json; charset=UTF-8");
+                        out.print(json);
+                        break;
+                        
+                        case "getSolicitud":
+
+                        String id = request.getParameter("idSolicitud");
+                        json = new Gson().toJson(getSolicitud(id));
 
                         // response.setContentType("application/json; charset=UTF-8");
                         out.print(json);
@@ -136,6 +149,17 @@ public class SecretariaController extends HttpServlet {
                     + "WHERE comprobante LIKE '" + "%" + quest + "%'";
             solicitudes = dao.findByQuery(query);
             return solicitudes;
+        } catch (Exception ex) {
+        }
+        return null;
+    }
+    
+    private Solicitud getSolicitud(String id) {
+       Solicitud solicitud = null;
+        SolicitudDao dao = new SolicitudDao();
+        try {
+            solicitud = dao.findByID(Integer.parseInt(id));
+            return solicitud;
         } catch (Exception ex) {
         }
         return null;

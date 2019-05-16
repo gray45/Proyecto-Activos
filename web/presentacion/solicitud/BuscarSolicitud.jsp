@@ -37,7 +37,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" name="quest" id="quest" class="form-control" onchange="buscar(1)"/>
+                                    <input type="text" name="quest" id="quest" class="form-control" oninput="buscar(1)"/>
                                 </div>
 
                             </div>
@@ -50,6 +50,10 @@
                     </form>
                     <br>
                     <div class="card-body">
+                        <div>
+                            <i class="fas fa-exclamation-triangle  btn-lg Verificar prefix"></i>
+                            <h4 style="display: inline">Para cambiar el estado de la solicitud dar click en el check<i class="fas fa-check-circle  btn-lg prefix"></i> </h4>
+                        </div>
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -70,7 +74,8 @@
                 </div>
                 <div class="col-md-1 col-sm-1"></div>
             </div>
-
+            <input class="escondida" id="idSolicitud"/>
+            <input class="escondida" id="estado"/>
 
             <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
@@ -78,34 +83,72 @@
                     <div class="modal-content">
                         <div class="modal-header text-center">
                             <h4 class="modal-title w-100 font-weight-bold">Cambiar Estado</h4>
+                            <button type="button" class="close" onclick="salir()" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <div id="divAprobar">
+                                    <i class=" fas fa-check-circle  btn-lg Verificar prefix " onclick="changeState('Verificar', '')"></i>
+                                    <h3 style="display: inline" >Aprobar</h3>
+                                </div>
+                            </div>
+                            <div class="md-form mb-4">
+                                <div id="divRechazada" >
+                                    <i class="fas fa-check-circle  btn-lg Rechazada prefix" onclick="rechazar('Rechazada')"></i>
+                                    <h3 style="display: inline">Rechazar</h3>
+                                </div>
+
+                                <div id="divTextArea" class="md-form mb-4 form-group escondida" >
+                                    <label class="Rechazada">Razon de Rechazo :</label>
+                                    <textarea id="razon" class="form-control"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="escondida" id="divMensaje">
+                                            <i class= "fas fa-exclamation-triangle btn-lg Rechazada prefix"></i>
+                                            <h5 style="display: inline">Debe de agregar la razón del rechazo</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="escondida" id="confirmarRechazo">
+                                            <i class="fas fa-times-circle  btn-lg Rechazada prefix" onclick="razonRechazo()"></i>
+                                            <h3 style="display: inline">Rechazar</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body mx-3">
                             <div class="md-form mb-5">
-                                <i class=" fas fa-check-circle  btn-lg Aprobada prefix " onclick="changeState('Verificar')"></i>
-                                <h3 style="display: inline" >Aprobar</h3>
+                                <i class="fas fa-exclamation-triangle btn-lg Verificar prefix "></i>
+                                <h3 style="display: inline">Estado cambiado con exito con exito</h3>
                             </div>
-
-                            <div class="md-form mb-4">
-                                <i class="fas fa-check-circle  btn-lg Rechazada prefix" onclick="changeState('Rechazada')"></i>
-                                <h3 style="display: inline">Rechazar</h3>
-                            </div>
-                            
-                            <div id="divTextArea" class="md-form mb-4 form-group escondida" >
-                                <label>Razon de Rechazo :</label>
-                                <textarea id="razon" class="form-control"></textarea>
-                            </div>
-
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
     </body>
