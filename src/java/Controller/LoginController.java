@@ -18,19 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author Escinf
  */
-@WebServlet(name = "presentation.usuarios.login", 
-        urlPatterns = 
-                {
-//                    "/presentacion/usuarios/login/prepareLogin",
-//                    "/presentacion/usuarios/login/login",
-//                    "/presentacion/usuarios/login/logout"
-                      "/Controller/LoginController"
-                })
+@WebServlet(name = "presentation.usuarios.login",
+        urlPatterns
+        = {
+            //                    "/presentacion/usuarios/login/prepareLogin",
+            //                    "/presentacion/usuarios/login/login",
+            //                    "/presentacion/usuarios/login/logout"
+            "/Controller/LoginController"
+        })
 
 public class LoginController extends HttpServlet {
 
@@ -43,92 +42,129 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, 
-                                  HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
-        String action  = request.getParameter("action");
-                
-            if (action.equals("prepareLogin"))
-                this.prepareLogin(request, response);        
-            if (action.equals("login"))
-                this.login(request, response);
-            if (action.equals("logout"))
-                this.logout(request, response);            
+        String action = request.getParameter("action");
+
+        if (action.equals("prepareLogin")) {
+            this.prepareLogin(request, response);
+        }
+        if (action.equals("login")) {
+            this.login(request, response);
+        }
+        if (action.equals("logout")) {
+            this.logout(request, response);
+        }
     }
 
     protected void prepareLogin(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         Usuario model = new Usuario();
         request.setAttribute("model", model);
-        request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward( request, response); 
-    } 
-
-    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
-        if(this.verificar(request)){
-            Map<String,String> errors =  this.validar(request);
-            if(errors.isEmpty()){
-                Usuario model = new Usuario();
-                updateModel(model,request);
-                request.setAttribute("model", model);
-                Usuario logged=null;
-                try {
-                    String userName = request.getParameter("userName");
-                    String password = request.getParameter("password");
-                    logged= getusuarioForLogin(userName, password);
-                    request.getSession(true).setAttribute("logged", logged);
-                    request.getRequestDispatcher("/index.jsp").forward( request, response); 
-                } catch (Exception ex) {
-                    request.getRequestDispatcher("/presentacion/usuarios/login/View.jsp").forward(request, response);
-                }                  
-            }
-            else{
-                request.setAttribute("errors", errors);
-                request.getRequestDispatcher("/presentacion/usuarios/login/View.jsp").forward(request, response);
-            }            
-        }
-        else{
-            request.getRequestDispatcher("/presentacion/Error.jsp").forward(request, response);            
-        }
+        request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
     }
-        
+
+    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (this.verificar(request)) {
+            String errors = this.validar(request);
+            if (errors.equals("0,0")) {
+                Usuario model = new Usuario();
+                updateModel(model, request);
+                request.setAttribute("model", model);
+                Usuario logged = null;
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+
+                try {
+
+                    logged = getusuarioForLogin(userName, password);
+                    if (logged != null) {
+                        request.getSession(true).setAttribute("logged", logged);
+                        request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("errors", "usuarioInvalid");
+                        Usuario mod = new Usuario();
+                        request.setAttribute("model", mod);
+                        request.setAttribute("userName", userName);
+                        request.setAttribute("password", password);
+                        request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
+                    }
+                } catch (Exception ex) {
+                    request.setAttribute("errors", "usuarioInvalid");
+                    Usuario mod = new Usuario();
+                    request.setAttribute("model", mod);
+                    request.setAttribute("userName", userName);
+                    request.setAttribute("password", password);
+                    request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("errors", errors);
+                Usuario model = new Usuario();
+                request.setAttribute("model", model);
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+                request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
+            }
+        } else {
+            request.setAttribute("errors", "1,1");
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
+        }
+
+    }
+
     protected void logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession(true);
-            session.removeAttribute("logged");
-            session.invalidate();
-           prepareLogin(request, response); 
-    }           
-
-    boolean verificar(HttpServletRequest request){
-       if (request.getParameter("userName")==null) return false;
-       if (request.getParameter("password")==null) return false; 
-       return true;
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("logged");
+        session.invalidate();
+        prepareLogin(request, response);
     }
-    
-    Map<String,String> validar(HttpServletRequest request){
-        Map<String,String> errores = new HashMap<>();
-        if (request.getParameter("userName").isEmpty()){
-            errores.put("userName","userName requerido");
+
+    boolean verificar(HttpServletRequest request) {
+        if (request.getParameter("userName") == null) {
+            return false;
+        }
+        if (request.getParameter("password") == null) {
+            return false;
+        }
+        return true;
+    }
+
+    private String validar(HttpServletRequest request) {
+        String errores = "0,0";
+        String isEmpty[] = new String[2];
+        if (request.getParameter("userName").isEmpty()) {
+            isEmpty[0] = "1";
+        } else {
+            isEmpty[0] = "0";
         }
 
-        if (request.getParameter("password").isEmpty()){
-            errores.put("password","password requerida");
+        if (request.getParameter("password").isEmpty()) {
+            isEmpty[1] = "1";
+        } else {
+            isEmpty[1] = "0";
         }
+
+        errores = isEmpty[0] + "," + isEmpty[1];
+
         return errores;
     }
-        
-    void updateModel(Usuario model, HttpServletRequest request){
+
+    void updateModel(Usuario model, HttpServletRequest request) {
         model.setNombre(request.getParameter("userName"));
         model.setPassword(request.getParameter("password"));
     }
-    
-    private Usuario getusuarioForLogin(String userName, String password){
+
+    private Usuario getusuarioForLogin(String userName, String password) {
         UsuarioDao dao = new UsuarioDao();
-        String query = "FROM Usuario WHERE nombre = '" + userName 
+        String query = "FROM Usuario WHERE nombre = '" + userName
                 + "'  AND password = '" + password + "'";
-   return (Usuario) dao.findByQuery(query).get(0);
+        return (Usuario) dao.findByQuery(query).get(0);
     }
- 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
