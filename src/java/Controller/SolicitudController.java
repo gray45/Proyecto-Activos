@@ -13,6 +13,7 @@ import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,11 +55,11 @@ public class SolicitudController extends HttpServlet {
             this.agregarBien(request, response);
         }
 
-        if (action.equals("agregarNuevaSolicitud")) {
+        if (action.equals("Agregar Solicitud")) {
             this.agregarNuevaSolicitud(request, response);
         }
-        
-         if (action.equals("detalle")) {
+
+        if (action.equals("detalle")) {
             this.detalle(request, response);
         }
 
@@ -112,9 +113,8 @@ public class SolicitudController extends HttpServlet {
                     String quest = request.getParameter("quest");
                     request.setAttribute("solicitudes", findByQuest(quest));
                 }
-            }
-            else{
-            request.setAttribute("solicitudes", findAll());
+            } else {
+                request.setAttribute("solicitudes", findAll());
             }
         } catch (Exception ex) {
         }
@@ -123,24 +123,55 @@ public class SolicitudController extends HttpServlet {
 
     private void agregarNuevaSolicitud(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        if (verificar(request)) {
             String NumComrobante = request.getParameter("campoComprobante");
-            String fecha = request.getParameter("campoFecha");
+            java.util.Date date = new Date();
+            String fecha = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
             String tipo = request.getParameter("tipo");
-            Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
+            if (validar(NumComrobante, tipo).equals("0,0")) {
+                if (haveData(request)) {
+                    try {
 
-            Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
-                    "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
-            SolicitudDao dao = new SolicitudDao();
-            dao.save(unaSolicitud);
+                        Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
 
-            String query = "FROM Solicitud WHERE comprobante = '" + NumComrobante
-                    + "'";
-            Solicitud solicitudBase = (Solicitud) dao.findByQuery(query).get(0);
-            registrar(request, response, solicitudBase.getIdSolicitud());
+                        Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
+                                "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
+                        SolicitudDao dao = new SolicitudDao();
+                        dao.save(unaSolicitud);
 
-            buscarSolicitud(request, response);
-        } catch (Exception ex) {
+                        String query = "FROM Solicitud WHERE comprobante = '" + NumComrobante
+                                + "'";
+                        Solicitud solicitudBase = (Solicitud) dao.findByQuery(query).get(0);
+                        registrar(request, response, solicitudBase.getIdSolicitud());
+
+                        buscarSolicitud(request, response);
+                    } catch (Exception ex) {
+                        request.setAttribute("errors", validar(NumComrobante, tipo));
+                        request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("errors", "isEmpty");
+                    request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("errors", validar(NumComrobante, tipo));
+                request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+
+            }
+        } else {
+            request.setAttribute("errors", "1,1");
+            request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+        }
+
+    }
+
+    private Boolean haveData(HttpServletRequest request) {
+        ArrayList<Bien> bienes = new ArrayList<>();
+        bienes = (ArrayList<Bien>) request.getSession().getAttribute("modeloBienes");
+        if (bienes != null && bienes.isEmpty()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -212,23 +243,21 @@ public class SolicitudController extends HttpServlet {
         }
         return null;
     }
-    
-    
+
     private void detalle(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String id = request.getParameter("id");
-        
+
         SolicitudDao dao = new SolicitudDao();
-       Solicitud solicitud = dao.findByID(Integer.parseInt(id));
-       
+        Solicitud solicitud = dao.findByID(Integer.parseInt(id));
+
         request.setAttribute("solicitud", solicitud);
         request.setAttribute("bienes", getBienesBySolicitud(id));
         request.getRequestDispatcher("/presentacion/solicitud/Detalle.jsp").forward(request, response);
     }
-    
-    
-     private List<Bien> getBienesBySolicitud(String quest) {
+
+    private List<Bien> getBienesBySolicitud(String quest) {
         List<Bien> Bienes = null;
         BienDao dao = new BienDao();
         try {
@@ -239,6 +268,36 @@ public class SolicitudController extends HttpServlet {
         } catch (Exception ex) {
         }
         return null;
+    }
+
+    private String validar(String numComprobante, String tipo) {
+        String errores = "0,0";
+        String isEmpty[] = new String[2];
+        if (numComprobante.isEmpty()) {
+            isEmpty[0] = "1";
+        } else {
+            isEmpty[0] = "0";
+        }
+
+        if (tipo.equals("--")) {
+            isEmpty[1] = "1";
+        } else {
+            isEmpty[1] = "0";
+        }
+
+        errores = isEmpty[0] + "," + isEmpty[1];
+
+        return errores;
+    }
+
+    private boolean verificar(HttpServletRequest request) {
+        if (request.getParameter("campoComprobante") == null) {
+            return false;
+        }
+        if (request.getParameter("tipo") == null) {
+            return false;
+        }
+        return true;
     }
 
 }

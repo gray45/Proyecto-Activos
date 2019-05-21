@@ -66,6 +66,8 @@ public class LoginController extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
         if (this.verificar(request)) {
             String errors = this.validar(request);
             if (errors.equals("0,0")) {
@@ -73,8 +75,6 @@ public class LoginController extends HttpServlet {
                 updateModel(model, request);
                 request.setAttribute("model", model);
                 Usuario logged = null;
-                String userName = request.getParameter("userName");
-                String password = request.getParameter("password");
 
                 try {
 
@@ -102,14 +102,14 @@ public class LoginController extends HttpServlet {
                 request.setAttribute("errors", errors);
                 Usuario model = new Usuario();
                 request.setAttribute("model", model);
-                String userName = request.getParameter("userName");
-                String password = request.getParameter("password");
+                request.setAttribute("userName", userName);
+                request.setAttribute("password", password);
                 request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("errors", "1,1");
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password");
+            request.setAttribute("userName", userName);
+            request.setAttribute("password", password);
             request.getRequestDispatcher("/presentacion/usuario/login/View.jsp").forward(request, response);
         }
 

@@ -209,7 +209,7 @@ function getSolicitud(idSolicitud) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
 
             if (data.estado === "Rechazada") {
-                if (data.rasonRechazo != "" || data.rasonRechazo != undefined) {
+                if (data.rasonRechazo !== "" || data.rasonRechazo !== undefined) {
                     $('#razon').val(data.rasonRechazo);
                     $('#divTextArea').show();
                     $('#divRechazada').hide();

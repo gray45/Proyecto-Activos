@@ -163,3 +163,24 @@ th{
 .left{
     float: left;
 }
+
+.black{
+    background-color: black;
+    color: white;
+    height: 37px;
+
+}
+
+.curva{
+    
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+
+.sombra{
+    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+}
