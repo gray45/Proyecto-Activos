@@ -13,7 +13,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include  file="../../Head.jsp" %>
+        <script src="js/ajax.js"></script> 
         <title>Detalle Solicitud</title>
+
     </head>
     <body>
         <%@include  file="../../Header.jsp" %>
@@ -21,6 +23,7 @@
         <% List<Bien> bienes = (List<Bien>) request.getAttribute("bienes");%>
         <h1>Detalle</h1>
         <div  class="container-fluid">
+            <input id="idSolicitud" type="hidden" value="<%=solicitud.getIdSolicitud()%>" >
 
             <% if (solicitud != null) {%>
 
@@ -28,25 +31,49 @@
                 <div class="col-md-2 col-lg-1"></div>
                 <div class="col-md-8 col-lg-10">
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div >
-                                <h3>Comprobante : <%= solicitud.getComprobante()%></h3>
+
+                    <div class="col-md-4 " >
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div >
+                                    <h3>Comprobante : <%= solicitud.getComprobante()%></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div >
+                                    <h3>Fecha : <%= solicitud.getFecha()%></h3>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div >
-                                <h3>Fecha : <%= solicitud.getFecha()%></h3>
+                    <div class="col-md-4 " ></div>
+
+
+                    <% if (logged.getRol().equals("Jefe")) {%>  
+                    <script src="js/Detalle.js" type="text/javascript"></script>
+                    <div class="col-md-4" id="campoSeleccionRegistrador">
+                        <h3>Seleccionar Buscador</h3>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" name="quest" id="quest" class="form-control"  oninput="buscar()" placeholder="Numero de Cedula del usuario"/>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12" id="camposDeSugerencias"  >
+
                             </div>
                         </div>
+
+
                     </div>
-                    <br>
+                    <%}%>
+
 
                     <div class="row">
-
                         <table class="table table-hover table-striped">
                             <tr>
                                 <th>Descripcion</th>
@@ -57,7 +84,7 @@
                                 <td>Estado</td>
                             </tr>
                             <% if (bienes != null) {
-                                for (Bien bien : bienes) {%>
+                                    for (Bien bien : bienes) {%>
                             <tr>
                                 <td><%=bien.getDescripcion()%></td>
                                 <td><%=bien.getMarca()%></td>
@@ -67,7 +94,7 @@
                                 <td><%=bien.getEstado()%></td>
                             </tr>
                             <% }
-                            }%>
+                                }%>
 
                         </table>
                     </div>

@@ -26,6 +26,13 @@
     padding: 5px 5px 5px 5px;
 }
 
+.contenedor2{
+
+    border: lightgray 1px solid;
+    border-bottom: lightgray 1px none;
+    padding: 5px 5px 5px 5px;
+}
+
 
 .titulo {
     padding: 10px 90px;
