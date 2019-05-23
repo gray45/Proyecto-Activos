@@ -81,7 +81,10 @@
                                 <th>Precio</th>
                                 <th>Cantidad</th>
                                 <th>Funcionario</th>
-                                <td>Estado</td>
+                                <th>Estado</th>
+                                    <% if (logged.getRol().equals("Registrador")) {%>
+                                <th>Categoria</th>
+                                    <%}%>
                             </tr>
                             <% if (bienes != null) {
                                     for (Bien bien : bienes) {%>
@@ -91,12 +94,46 @@
                                 <td><%=bien.getPrecio()%></td>
                                 <td><%=bien.getCantidad()%></td>
                                 <td><%=bien.getFuncionario()%></td>
+
+                                <% if (logged.getRol().equals("Registrador")) {%> 
+                                <td>
+                                    <button type='button' class='btn btn-md' aria-label='rigth Align' > 
+                                        <i class='far fa-times-circle'> <%=bien.getEstado()%> </i>
+                                    </button> 
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-control" id="camposCategorias">
+
+
+
+                                        </select>
+                                    </div>
+                                </td>
+                                <%}%>
+
+
+
+                                <% if (!logged.getRol().equals("Registrador")) {%> 
                                 <td><%=bien.getEstado()%></td>
+                                <%}%>
+
+
+
                             </tr>
                             <% }
                                 }%>
 
                         </table>
+
+                        <% if (logged.getRol().equals("Registrador")) {%> 
+                        <div class="row">
+                            <div class="col-md-5 col-lg-1">
+                                <button type="button" class="btn btn-success" onclick="ProcesarBoton()">Procesar</button>                          
+                            </div>
+                            <div class="col-md-7 col-lg-1"></div>
+                        </div>
+                        <%}%>
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-1"></div>
