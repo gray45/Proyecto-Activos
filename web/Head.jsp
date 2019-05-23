@@ -1,4 +1,4 @@
-<base href="http://localhost:8080/Proyecto-Activos/Proyecto-Activos">        
+<base href="http://localhost:47843/Proyecto-Activos/Proyecto-Activos">        
 <link rel="stylesheet" href="css/estilo.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>

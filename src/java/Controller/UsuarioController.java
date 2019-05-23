@@ -39,7 +39,6 @@ public class UsuarioController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("agregar".equals(action)) {
-            String descripcion = request.getParameter("descripcion");
             String funcionarioId = request.getParameter("funcionario");
             String userName = request.getParameter("UserName");
             String rol = request.getParameter("rol");

@@ -123,38 +123,57 @@ public class SolicitudController extends HttpServlet {
 
     private void agregarNuevaSolicitud(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String NumComrobante = request.getParameter("campoComprobante");
+        String tipo = request.getParameter("tipo");
+
         if (verificar(request)) {
-            String NumComrobante = request.getParameter("campoComprobante");
-            java.util.Date date = new Date();
-            String fecha = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
-            String tipo = request.getParameter("tipo");
+
             if (validar(NumComrobante, tipo).equals("0,0")) {
-                if (haveData(request)) {
-                    try {
+                SolicitudDao dao = new SolicitudDao();
+                String query = "FROM Solicitud WHERE comprobante = '" + NumComrobante + "'";
+                List<Solicitud> solicitudes = (List<Solicitud>) dao.findByQuery(query);
+                Solicitud solicitudBase = null;
+                if(!solicitudes.isEmpty()){
+                 solicitudBase = solicitudes.get(0);
+                }
+                if (solicitudBase == null) {
+                    Boolean validate = haveData(request);
+                    if (validate) {
+                        try {
+                            java.util.Date date = new Date();
+                            String fecha = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+                            Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
 
-                        Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
+                            Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
+                                    "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
 
-                        Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
-                                "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
-                        SolicitudDao dao = new SolicitudDao();
-                        dao.save(unaSolicitud);
+                            dao.save(unaSolicitud);
+                            solicitudBase = (Solicitud) dao.findByQuery(query).get(0);
+                            registrar(request, response, solicitudBase.getIdSolicitud());
 
-                        String query = "FROM Solicitud WHERE comprobante = '" + NumComrobante
-                                + "'";
-                        Solicitud solicitudBase = (Solicitud) dao.findByQuery(query).get(0);
-                        registrar(request, response, solicitudBase.getIdSolicitud());
-
-                        buscarSolicitud(request, response);
-                    } catch (Exception ex) {
-                        request.setAttribute("errors", validar(NumComrobante, tipo));
+                            buscarSolicitud(request, response);
+                        } catch (Exception ex) {
+                            request.setAttribute("errors", validar(NumComrobante, tipo));
+                            request.setAttribute("numComprobante", NumComrobante);
+                            request.setAttribute("tipo", tipo);
+                            request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("errors", "isEmpty");
+                        request.setAttribute("numComprobante", NumComrobante);
+                        request.setAttribute("tipo", tipo);
                         request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
                     }
                 } else {
-                    request.setAttribute("errors", "isEmpty");
+                    request.setAttribute("errors", "repetida");
+                    request.setAttribute("numComprobante", NumComrobante);
+                    request.setAttribute("tipo", tipo);
                     request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
                 }
             } else {
                 request.setAttribute("errors", validar(NumComrobante, tipo));
+                request.setAttribute("numComprobante", NumComrobante);
+                request.setAttribute("tipo", tipo);
                 request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
 
             }
@@ -168,7 +187,7 @@ public class SolicitudController extends HttpServlet {
     private Boolean haveData(HttpServletRequest request) {
         ArrayList<Bien> bienes = new ArrayList<>();
         bienes = (ArrayList<Bien>) request.getSession().getAttribute("modeloBienes");
-        if (bienes != null && bienes.isEmpty()) {
+        if (bienes != null && bienes.size() >= 1) {
             return true;
         } else {
             return false;
@@ -185,24 +204,54 @@ public class SolicitudController extends HttpServlet {
     private void agregarBien(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Bien unBien = new Bien();
-        ArrayList<Bien> bienes = new ArrayList<>();
+        String NumComrobante = request.getParameter("campoComprobante");
+        String tipo = request.getParameter("tipo");
+        String descripcion = request.getParameter("Descripcion");
+        String cantidad = request.getParameter("Cantidad");
+        String marca = request.getParameter("Marca");
+        String modelo = request.getParameter("Modelo");
+        String precio = request.getParameter("Precio");
 
-        unBien.setDescripcion(request.getParameter("Descripcion"));
-        unBien.setCantidad(request.getParameter("Cantidad"));
-        unBien.setMarca(request.getParameter("Marca"));
-        unBien.setPrecio(Integer.parseInt(request.getParameter("Precio")));
+        ArrayList<Bien> bienes = (ArrayList<Bien>) request.getSession().getAttribute("modeloBienes");
 
-        bienes = (ArrayList<Bien>) request.getSession().getAttribute("modeloBienes");
-        if (bienes != null) {
-            bienes.add(unBien);
-        } else {
+        if (bienes == null) {
             bienes = new ArrayList<>();
-            bienes.add(unBien);
         }
 
-        request.getSession().setAttribute("modeloBienes", bienes);
-        request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+        String errors = validarBien(descripcion, modelo, marca, precio, cantidad);
+
+        if (errors.equals("0,0,0,0,0")) {
+
+            Bien unBien = new Bien();
+
+            unBien.setDescripcion(descripcion);
+            unBien.setCantidad(cantidad);
+            unBien.setMarca(marca);
+            unBien.setPrecio(Integer.parseInt(precio));
+
+            if (bienes != null) {
+                bienes.add(unBien);
+            } else {
+                bienes = new ArrayList<>();
+                bienes.add(unBien);
+            }
+
+            request.getSession().setAttribute("modeloBienes", bienes);
+            request.setAttribute("numComprobante", NumComrobante);
+            request.setAttribute("tipo", tipo);
+            request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+        } else {
+            request.getSession().setAttribute("modeloBienes", bienes);
+            request.setAttribute("erroresBien", errors);
+            request.setAttribute("numComprobante", NumComrobante);
+            request.setAttribute("tipo", tipo);
+            request.setAttribute("descripcion", descripcion);
+            request.setAttribute("modelo", modelo);
+            request.setAttribute("marca", marca);
+            request.setAttribute("precio", precio);
+            request.setAttribute("cantidad", cantidad);
+            request.getRequestDispatcher("/presentacion/solicitud/NuevaSolicitud.jsp").forward(request, response);
+        }
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response, Integer idSolicitud) throws ServletException, IOException {
@@ -279,7 +328,7 @@ public class SolicitudController extends HttpServlet {
             isEmpty[0] = "0";
         }
 
-        if (tipo.equals("--")) {
+        if (tipo.equals("--") || tipo.isEmpty()) {
             isEmpty[1] = "1";
         } else {
             isEmpty[1] = "0";
@@ -298,6 +347,45 @@ public class SolicitudController extends HttpServlet {
             return false;
         }
         return true;
+    }
+
+    private String validarBien(String descripcion, String modelo, String marca, String precio, String cantidad) {
+        String errores = "0,0,0,0,0";
+        String isEmpty[] = new String[5];
+
+        if (descripcion.isEmpty()) {
+            isEmpty[0] = "1";
+        } else {
+            isEmpty[0] = "0";
+        }
+
+        if (modelo.isEmpty()) {
+            isEmpty[1] = "1";
+        } else {
+            isEmpty[1] = "0";
+        }
+
+        if (marca.isEmpty()) {
+            isEmpty[2] = "1";
+        } else {
+            isEmpty[2] = "0";
+        }
+
+        if (precio.isEmpty()) {
+            isEmpty[3] = "1";
+        } else {
+            isEmpty[3] = "0";
+        }
+
+        if (cantidad.isEmpty()) {
+            isEmpty[4] = "1";
+        } else {
+            isEmpty[4] = "0";
+        }
+
+        errores = isEmpty[0] + "," + isEmpty[1] + "," + isEmpty[2] + "," + isEmpty[3] + "," + isEmpty[4];
+
+        return errores;
     }
 
 }
