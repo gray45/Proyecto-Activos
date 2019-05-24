@@ -45,13 +45,16 @@ public class BuscarRegistrador {
     public String SeleccionRegistrador(@PathParam("parametros") String parametros) {
         String[] values = parametros.split(",");
         if(values.length == 2){
+            try{
             SolicitudDao solicitudDao = new SolicitudDao(); 
-            Solicitud solicitud = new Solicitud();
-            solicitud = solicitudDao.findByID(Integer.parseInt(values[1]));
+            Solicitud solicitud = solicitudDao.findByID(Integer.parseInt(values[1]));
             solicitud.setRegistrador(values[0]);
             solicitudDao.merge(solicitud);
             
-             return "bien";
+             return "bien";}
+            catch(Exception ex){
+            return "mal";
+            }
         }
         else{
         return "mal";
