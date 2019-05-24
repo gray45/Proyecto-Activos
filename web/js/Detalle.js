@@ -76,7 +76,7 @@ function row(registrador, where) {
 
     //div.addEventListener("mouseover", onRowRegistradores(div));
 
-    div.innerHTML = "<div onclick='seleccionRegistrador(" + id + ");'>" + nombre + " " + id + "</div>";
+    div.innerHTML = "<div onclick='seleccionRegistrador(" + '"' + nombre + '"' + ");'>" + nombre + " " + id + "</div>";
 
 
     where.appendChild(div);

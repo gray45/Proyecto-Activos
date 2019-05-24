@@ -5,7 +5,9 @@
  */
 package domRestful.api.DetalleBuscarRegistrador;
 
+import Dao.SolicitudDao;
 import Dao.UsuarioDao;
+import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.util.Arrays;
 import java.util.List;
@@ -40,9 +42,20 @@ public class BuscarRegistrador {
     @POST
     @Path("{parametros}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void SeleccionRegistrador(@PathParam("parametros") String parametros) {
+    public String SeleccionRegistrador(@PathParam("parametros") String parametros) {
         String[] values = parametros.split(",");
-        System.out.println("llego el malparido"+Arrays.toString(values));
+        if(values.length == 2){
+            SolicitudDao solicitudDao = new SolicitudDao(); 
+            Solicitud solicitud = new Solicitud();
+            solicitud = solicitudDao.findByID(Integer.parseInt(values[1]));
+            solicitud.setRegistrador(values[0]);
+            solicitudDao.merge(solicitud);
+            
+             return "bien";
+        }
+        else{
+        return "mal";
+        }
  
     }
 //        UsuarioDao dao = new UsuarioDao();
