@@ -15,7 +15,7 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
     <div class="container-fluid">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Activos</a>
+            <a class="navbar-brand" href="/Proyecto-Activos">Activos</a>
         </div>
 
 
@@ -83,7 +83,9 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Solicitud<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>  <a href="Controller/SecretariaOccd/SolicitudController?action=Buscar">Buscar Solicitud</a>     </li>
-                 </ul>
+                 <li>  <a href="presentacion/categoria/categoria.jsp">Categorias</a>     </li>
+                
+                </ul>
             </li>
 
             <% }%>
@@ -104,6 +106,28 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
            
             
 </nav>
+            
+            <div class="modal fade" id="alerModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i id="icono" class="fas fa-exclamation-triangle btn-lg prefix "></i>
+                    <h3 id="mensaje" style="display: inline"></h3>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
