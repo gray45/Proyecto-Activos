@@ -32,12 +32,9 @@
                         <div class="row ">
                             <div class="col-md-3"></div>
                             <div class="col-md-5 form-group">
-                                <label class="control-label">
-                                    # Comprobante :
-                                </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" name="quest" id="quest" class="form-control" oninput="buscar(1)"/>
+                                    <input type="text" name="quest" id="quest" class="form-control" placeholder="Numero De Comprobante" oninput="buscar(1)"/>
                                 </div>
 
                             </div>
@@ -62,7 +59,7 @@
                                     <th>Fecha</th>
                                     <th>Tipo</th>
                                     <th>Estado</th>
-                                    <td>Detalle</td>
+                                    <th>Detalle</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody"></tbody>                        

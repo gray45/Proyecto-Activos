@@ -16,12 +16,17 @@ import java.util.Map;
  */
 public class ModelDetalle {
 
-    static ArrayList<Categoria> categorias = new ArrayList(){};
+    static List<Categoria> categorias = new ArrayList(){};
 
-    public static ArrayList<Categoria> listarCategorias() throws Exception {
+    public static List<Categoria> listarCategorias() throws Exception {
+        
         CategoriaDao dao = new CategoriaDao();
-        categorias = (ArrayList<Categoria>) dao.findAll();
+        String query = "FROM Categoria\n"
+                + "WHERE activo = 1";
+        categorias = dao.findByQuery(query);
+        
         return categorias;
+
     }
 
 }

@@ -103,10 +103,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <select class="form-control" id="camposCategorias">
-
-
-
+                                    <select class="form-control" id="camposCategorias" >
                                     </select>
                                 </div>
                             </td>
@@ -121,8 +118,8 @@
 
 
                             </tr>
-                            <% }
-                                }%>
+                                    <%}
+                            }%>
 
                         </table>
 
