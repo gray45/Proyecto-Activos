@@ -31,7 +31,7 @@ public class SeleccionarCategoria {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<Categoria> listRegistradores() throws Exception {
+    public List<Categoria> listCategoria() throws Exception {
         System.out.print("llego al servidor");
         return ModelDetalle.listarCategorias();
     }
