@@ -187,7 +187,7 @@ border: 0px solid #000000;
 }
 
 .sombra{
-    -webkit-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 11px 0px rgba(0,0,0,0.75);
+   -webkit-box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
+box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
 }
