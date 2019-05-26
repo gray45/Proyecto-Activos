@@ -14,11 +14,6 @@
         <property name="activo" type="int">
             <column name="activo" not-null="true" />
         </property>
-        <set name="biencategorias" table="biencategoria" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Categoria_id" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Biencategoria" />
-        </set>
+        
     </class>
 </hibernate-mapping>

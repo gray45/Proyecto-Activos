@@ -9,7 +9,6 @@ import Dao.SolicitudDao;
 import Dao.UsuarioDao;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
-import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

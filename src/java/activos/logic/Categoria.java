@@ -14,7 +14,6 @@ public class Categoria  implements java.io.Serializable {
      private Integer id;
      private String descripcion;
      private int activo;
-     private Set biencategorias = new HashSet(0);
 
     public Categoria() {
     }
@@ -24,12 +23,7 @@ public class Categoria  implements java.io.Serializable {
         this.descripcion = descripcion;
         this.activo = activo;
     }
-    public Categoria(String descripcion, int activo, Set biencategorias) {
-       this.descripcion = descripcion;
-       this.activo = activo;
-       this.biencategorias = biencategorias;
-    }
-   
+    
     public Integer getId() {
         return this.id;
     }
@@ -51,13 +45,7 @@ public class Categoria  implements java.io.Serializable {
     public void setActivo(int activo) {
         this.activo = activo;
     }
-    public Set getBiencategorias() {
-        return this.biencategorias;
-    }
-    
-    public void setBiencategorias(Set biencategorias) {
-        this.biencategorias = biencategorias;
-    }
+   
 
 
 
