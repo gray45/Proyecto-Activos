@@ -35,9 +35,7 @@
                     <div class="col-md-4 " >
                         <div class="row">
                             <div class="col-md-8">
-                                <div >
-                                    <h3>Comprobante : <%= solicitud.getComprobante()%></h3>
-                                </div>
+                                <h3>Comprobante: <%= solicitud.getComprobante()%></h3>
                             </div>
                         </div>
                         <div class="row">
@@ -52,7 +50,7 @@
 
 
                     <% if (logged.getRol().equals("Jefe")) {%>  
-                    <script src="js/Detalle.js" type="text/javascript"></script>
+                    <script src="js/DetalleJefe.js" type="text/javascript"></script>
                     <div class="col-md-4" id="campoSeleccionRegistrador">
                         <h3>Seleccionar Buscador</h3>
 
@@ -96,27 +94,29 @@
                                 <td><%=bien.getFuncionario()%></td>
 
                                 <% if (logged.getRol().equals("Registrador")) {%> 
-                                <td>
-                                    <button type='button' class='btn btn-md' aria-label='rigth Align' > 
-                                        <i class='far fa-times-circle'> <%=bien.getEstado()%> </i>
-                                    </button> 
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <select class="form-control" id="camposCategorias">
+                            <script src="js/DetalleRegistrador.js" type="text/javascript"></script>
+
+                            <td>
+                                <button type='button' class='btn btn-md' aria-label='rigth Align' > 
+                                    <i class='far fa-times-circle'> <%=bien.getEstado()%> </i>
+                                </button> 
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <select class="form-control" id="camposCategorias">
 
 
 
-                                        </select>
-                                    </div>
-                                </td>
-                                <%}%>
+                                    </select>
+                                </div>
+                            </td>
+                            <%}%>
 
 
 
-                                <% if (!logged.getRol().equals("Registrador")) {%> 
-                                <td><%=bien.getEstado()%></td>
-                                <%}%>
+                            <% if (!logged.getRol().equals("Registrador")) {%> 
+                            <td><%=bien.getEstado()%></td>
+                            <%}%>
 
 
 
