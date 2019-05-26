@@ -5,36 +5,6 @@
  */
 
 
-document.addEventListener("DOMContentLoaded", loaded);
-function loaded(event) {
-    //una vez que inicio el programa
-   
-    var categorias = new Array();
-    //traer todas las categorias...
-    
-    categorias.forEach((categoria) => {
-        showCategoria(categoria,  $("#camposCategorias"));
-    });
-
-}
-function procesarBoton(){
-    console.log("pagina cargada...");
-}
-
-function showCategoria(categoria, where) {
-    var div = document.createElement("");
-    div.classList.add("contenedor2");
-
-    //div.addEventListener("mouseover", onRowRegistradores(div));
-
-    div.innerHTML = "<div onclick='seleccionRegistrador(" + id + ");'>" + nombre + " " + id + "</div>";
-
-
-    where.appendChild(div);
-
-}
-
-
 function buscar() {
     var data = new Array();
     var txt = $("#quest").val();
