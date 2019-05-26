@@ -54,7 +54,7 @@
                             <i class="fas fa-exclamation-triangle  btn-lg Verificar prefix"></i>
                             <h4 style="display: inline">Para cambiar el estado de la solicitud dar click en el check<i class="fas fa-check-circle  btn-lg prefix"></i> </h4>
                         </div>
-                        <table class="table table-hover table-striped">
+                        <table class="table table-hover table-striped table-responsive">
                             <thead>
                                 <tr>
                                     <th>Comprobante</th>

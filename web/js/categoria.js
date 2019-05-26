@@ -78,7 +78,7 @@ function dibujarFila(rowData) {
 
     row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="showEdit(' + rowData.id + ')">' +
             '<i class="fas fa-pencil-alt " style="color : blue;" aria-hidden="true"></i>'
-            + '<button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="delete(' + rowData.id + ')">' +
+            + '<button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="showDelete(' + rowData.id + ')">' +
             '<i class="fas fa-trash-alt Rechazada " aria-hidden="true"></i></td>'));
 
 }
@@ -102,6 +102,8 @@ function paginador(pagAct, tam) {
     $("#paginacionOpc").append('<li onclick="findAll(' + (ini - 1) + '), paginador(' + (ini - 1) + ',' + tam + ')"><a>&raquo;</a></li>');
 }
 
+
+
 function showEdit(id) {
     $.ajax({
 
@@ -114,13 +116,12 @@ function showEdit(id) {
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             $("#descripcion").val(data.descripcion);
             $('html, body').animate({scrollTop: 0}, 'slow');
-            $("#boton").removeClass("btn-success");
-            $("#boton").text("");
-            $("#boton").text("Editar");
+            $("#idCategoria").val(data.id);
             $("#h3Categoria").text("");
             $("#h3Categoria").text("Editar Categoria");
-            $("#boton").addClass("btn-info");
             $("#divDescripcionCategoria").addClass("has-success");
+            $("#divAdd").hide("slow");
+            $("#divEdit").show("slow");
             $("#divCancel").show("slow");
         },
         type: 'POST',
@@ -129,8 +130,29 @@ function showEdit(id) {
 
 }
 
-function Edit(id) {
-    var edit = id + "," + $("#descripcion").val();
+
+function showDelete(id) {
+    $.ajax({
+
+        url: "api/Categoria/" + id,
+
+        error: function () { //si existe un error en la respuesta del ajax
+            showAlert("Rechazada", "Hubo un problema al buscar la categoria");
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            $("#idCategoria").val(data.id);
+            $("#mensajeDelete").text("Estas seguro que quieres borrar la categoria : " + data.descripcion);
+            $("#modalDelete").modal("show");
+        },
+        type: 'POST',
+        contentType: "application/json"
+    });
+
+}
+
+function edit() {
+    var edit = $("#idCategoria").val() + "," + $("#descripcion").val();
     $.ajax({
 
         url: "api/Categoria/" + edit,
@@ -143,6 +165,7 @@ function Edit(id) {
             if (data === "bien") {
                 showAlert("Asignada", "Se edito la categoria exitosamente");
                 cancel();
+                findAll(1);
             } else {
                 showAlert("Rechazada", "Hubo un problema al editar la categoria");
             }
@@ -163,5 +186,32 @@ function cancel() {
     $("#h3Categoria").text("Agregar Categoria");
     $("#boton").addClass("btn-success");
     $("#divDescripcionCategoria").removeClass("has-success");
-    $("#divCancel").hide();
+    $("#divCancel").hide("slow");
+    $("#divEdit").hide("slow");
+    $("#divAdd").show("slow");
+}
+
+function borrar() {
+    $("#modalDelete").modal("hide");
+    $.ajax({
+
+        url: "api/Categoria/" + $("#idCategoria").val(),
+
+        error: function () { //si existe un error en la respuesta del ajax
+            showAlert("Rechazada", "Hubo un problema al eliminar la categoria");
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+    
+    if (data === "bien") {
+                showAlert("Asignada", "Se elimino la categoria exitosamente");
+                findAll(1);
+            } else {
+                showAlert("Rechazada", "Hubo un problema al eliminar la categoria");
+            }
+        },
+        type: 'DELETE',
+        dataType: "text"
+    });
+
 }
