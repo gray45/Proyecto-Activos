@@ -86,7 +86,7 @@ public class CategoriaApi {
     }
     
     @DELETE
-    @Path("{borrar}")
+    @Path("{delete}")
     @Produces({MediaType.TEXT_HTML})
     public String delete(@PathParam("borrar") String idCategoria) {
         String respuesta = null;

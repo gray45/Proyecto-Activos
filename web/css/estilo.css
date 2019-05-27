@@ -126,6 +126,14 @@ th{
     color: green;
 }
 
+.ativo{
+    color: green;
+}
+
+.inactivo{
+    color: orange;
+}
+
 .boton {
     border-radius: 200px 200px 200px 200px;
     -moz-border-radius: 200px 200px 200px 200px;

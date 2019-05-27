@@ -15,7 +15,7 @@
         <%@include  file="../../Head.jsp" %>
         <script src="js/ajax.js"></script> 
         <title>Detalle Solicitud</title>
-
+        <script src="js/Detalle.js" type="text/javascript"></script>
     </head>
     <body>
         <%@include  file="../../Header.jsp" %>
@@ -23,7 +23,7 @@
         <% List<Bien> bienes = (List<Bien>) request.getAttribute("bienes");%>
         <h1>Detalle</h1>
         <div  class="container-fluid">
-            <input id="idSolicitud" type="hidden" value="<%=solicitud.getIdSolicitud()%>" >
+            <input id="idSolicitud" type="text" class="escondida" value="<%=solicitud.getIdSolicitud()%>" >
 
             <% if (solicitud != null) {%>
 
@@ -73,56 +73,26 @@
 
                     <div class="row">
                         <table class="table table-hover table-striped">
-                            <tr>
-                                <th>Descripcion</th>
-                                <th>Marca</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Funcionario</th>
-                                <th>Estado</th>
-                                    <% if (logged.getRol().equals("Registrador")) {%>
-                                <th>Categoria</th>
-                                    <%}%>
-                            </tr>
-                            <% if (bienes != null) {
-                                    for (Bien bien : bienes) {%>
-                            <tr>
-                                <td><%=bien.getDescripcion()%></td>
-                                <td><%=bien.getMarca()%></td>
-                                <td><%=bien.getPrecio()%></td>
-                                <td><%=bien.getCantidad()%></td>
-                                <td><%=bien.getFuncionario()%></td>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Descripcion</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Funcionario</th>
+                                    <th>Estado</th>
+                                    <th>Categoria</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
 
-                                <% if (logged.getRol().equals("Registrador")) {%> 
-                            <script src="js/DetalleRegistrador.js" type="text/javascript"></script>
-
-                            <td>
-                                <button type='button' class='btn btn-md' aria-label='rigth Align' > 
-                                    <i class='far fa-times-circle'> <%=bien.getEstado()%> </i>
-                                </button> 
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <select class="form-control" id="camposCategorias" >
-                                    </select>
-                                </div>
-                            </td>
-                            <%}%>
-
-
-
-                            <% if (!logged.getRol().equals("Registrador")) {%> 
-                            <td><%=bien.getEstado()%></td>
-                            <%}%>
-
-
-
-                            </tr>
-                                    <%}
-                            }%>
+                            </tbody>
 
                         </table>
-
+                        <div class="card-footer">
+                            <li class="pagination pagination-sm"  align-content="center" id="paginacionOpc"></ul>
+                        </div>
                         <% if (logged.getRol().equals("Registrador")) {%> 
                         <div class="row">
                             <div class="col-md-5 col-lg-1">
@@ -137,5 +107,29 @@
             </div>
             <% }%>
         </div>
+          
+            
+        <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5" id="panel">
+                               
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <input type="text"  id="idBien" class=""  />
     </body>
 </html>

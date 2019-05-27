@@ -32,8 +32,7 @@ public class Bien  implements java.io.Serializable {
      private int precio;
      private String funcionario;
      private String estado;
-     private Set funcionariobiens = new HashSet(0);
-     private Set biencategorias = new HashSet(0);
+    
 
     public Bien() {
     }
@@ -47,17 +46,7 @@ public class Bien  implements java.io.Serializable {
         this.precio = precio;
         this.estado = estado;
     }
-    public Bien(Integer solicitud, String descripcion, String cantidad, String marca, int precio, String funcionario, String estado, Set funcionariobiens, Set biencategorias) {
-       this.solicitud = solicitud;
-       this.descripcion = descripcion;
-       this.cantidad = cantidad;
-       this.marca = marca;
-       this.precio = precio;
-       this.funcionario = funcionario;
-       this.estado = estado;
-       this.funcionariobiens = funcionariobiens;
-       this.biencategorias = biencategorias;
-    }
+    
       @Id @GeneratedValue(strategy=IDENTITY)
 
     
@@ -120,22 +109,7 @@ public class Bien  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public Set getFuncionariobiens() {
-        return this.funcionariobiens;
-    }
-    
-    public void setFuncionariobiens(Set funcionariobiens) {
-        this.funcionariobiens = funcionariobiens;
-    }
-    public Set getBiencategorias() {
-        return this.biencategorias;
-    }
-    
-    public void setBiencategorias(Set biencategorias) {
-        this.biencategorias = biencategorias;
-    }
-
-
+   
 
 }
 

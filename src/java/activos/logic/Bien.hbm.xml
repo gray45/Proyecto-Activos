@@ -29,17 +29,6 @@
         <property name="estado" type="string">
             <column name="estado" length="45" not-null="true" />
         </property>
-        <set name="funcionariobiens" table="funcionariobien" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Bien_idBien" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Funcionariobien" />
-        </set>
-        <set name="biencategorias" table="biencategoria" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Bien_idBien" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Biencategoria" />
-        </set>
+       
     </class>
 </hibernate-mapping>

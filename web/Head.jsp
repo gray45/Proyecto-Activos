@@ -7,7 +7,7 @@
 <link href="css/estiloMenu.css" rel="stylesheet" type="text/css"/>
  <script src="js/ajax.js"></script>
  <script src="js/ajaxPromise.js"></script>  
-
+ <script src="js/jquery.easy-autocomplete.js" type="text/javascript"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="js/utils.js" type="text/javascript"></script>
