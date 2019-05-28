@@ -107,29 +107,38 @@
             </div>
             <% }%>
         </div>
-          
-            
-        <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5" id="panel">
-                               
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
+
+
+        <div class="modal fade"  id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-8" id="panel">
 
                         </div>
+
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="card-footer">
+                            <li class="pagination pagination-sm"  id="paginacionOpcModal"></ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type='button' class='btn btn-lg btn-success' aria-label='rigth Align' onclick='asignarCategoria()'>
+                            <i class='fas fa-arrow-circle-right ' ></i> &nbsp;&nbsp Asignar</button>
                     </div>
                 </div>
             </div>
-        
-        <input type="text"  id="idBien" class=""  />
+        </div>
+
+        <input type="text"  id="idBien" class="escondida"  />
+        <input type="text"  id="idCategoria" class="escondida"  />
+
     </body>
 </html>
