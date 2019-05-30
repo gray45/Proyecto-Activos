@@ -1,14 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 30/05/2019 12:35:38 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="activos.logic.Bien" table="bien" catalog="activos" optimistic-lock="version">
-         <id name="idBien" type="java.lang.Integer">
+        <id name="idBien" type="java.lang.Integer">
             <column name="idBien" />
             <generator class="identity" />
         </id>
-        <property name="solicitud" type="java.lang.Integer">
+        <property name="categoria" type="java.lang.Integer">
+            <column name="Categoria_id" not-null="true" />
+        </property>
+         <property name="solicitud" type="java.lang.Integer">
             <column name="Solicitud_idSolicitud" not-null="true" />
         </property>
         <property name="descripcion" type="string">
@@ -28,6 +31,12 @@
         </property>
         <property name="estado" type="string">
             <column name="estado" length="45" not-null="true" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="modelo" length="45" not-null="true" />
+        </property>
+        <property name="categoriaNombre" type="string">
+            <column name="categoriaNombre" length="45" />
         </property>
        
     </class>

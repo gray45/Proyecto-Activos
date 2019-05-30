@@ -21,9 +21,9 @@ public class BienTest {
     }
     public static  void insertar(){
      for(int i=0; i<5; i++){
-     Bien cat = new Bien(2,"compuatadora", "3" ,"Dell", 350000 ,"inactivo");
+  //   Bien cat = new Bien(2,"compuatadora", "3" ,"Dell", 350000 ,"inactivo");
      BienDao catDao = new BienDao();
-            catDao.save(cat);
+          //  catDao.save(cat);
      }
          }
     

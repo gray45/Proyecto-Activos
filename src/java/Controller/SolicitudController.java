@@ -118,6 +118,7 @@ public class SolicitudController extends HttpServlet {
             }
         } catch (Exception ex) {
         }
+        request.getSession().setAttribute("modeloBienes", null);
         request.getRequestDispatcher("/presentacion/solicitud/BuscarSolicitud.jsp").forward(request, response);
     }
 
@@ -141,7 +142,7 @@ public class SolicitudController extends HttpServlet {
                     if (validate) {
                         try {
                             java.util.Date date = new Date();
-                            String fecha = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+                            String fecha = date.getDate()+ "/" + (date.getMonth()+ 1) + "/" + Integer.toString(date.getYear()).substring(1);
                             Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
 
                             Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
@@ -228,6 +229,7 @@ public class SolicitudController extends HttpServlet {
             unBien.setCantidad(cantidad);
             unBien.setMarca(marca);
             unBien.setPrecio(Integer.parseInt(precio));
+            unBien.setModelo(modelo);
 
             if (bienes != null) {
                 bienes.add(unBien);

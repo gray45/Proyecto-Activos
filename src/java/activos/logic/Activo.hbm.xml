@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 30/05/2019 12:35:38 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="activos.logic.Funcionariobien" table="funcionariobien" catalog="activos" optimistic-lock="version">
+    <class name="activos.logic.Activo" table="activo" catalog="activos" optimistic-lock="version">
         <id name="codigo" type="string">
             <column name="codigo" length="45" />
             <generator class="assigned" />
@@ -12,7 +12,16 @@
             <column name="Bien_idBien" not-null="true" />
         </many-to-one>
         <many-to-one name="funcionario" class="activos.logic.Funcionario" fetch="select">
-            <column name="Funcionario_idFuncionario" not-null="true" />
+            <column name="Funcionario_idFuncionario" />
         </many-to-one>
+        <property name="funcionarioNombre" type="string">
+            <column name="funcionarioNombre" length="45" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="categoria" length="45" />
+        </property>
     </class>
 </hibernate-mapping>

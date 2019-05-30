@@ -5,10 +5,10 @@
  */
 package domRestful.api.bien;
 
-import Dao.BienCategoriaDao;
 import Dao.BienDao;
+import Dao.CategoriaDao;
 import activos.logic.Bien;
-import activos.logic.Biencategoria;
+import activos.logic.Categoria;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,24 +32,30 @@ public class BienApi {
         String query = "FROM Bien\n"
                 + "WHERE solicitud = " + id;
         List<Bien> Bienes = dao.findByQuery(query);
-        
+
         return Bienes;
     }
-    
+
     @POST
     @Path("{asignar}")
     @Produces({MediaType.TEXT_HTML})
     public String asignar(@PathParam("asignar") String asignar) {
         try {
             String[] splitAsinar = asignar.split(",");
-            Biencategoria bienCate = new Biencategoria(Integer.parseInt(splitAsinar[0]),
-                    Integer.parseInt(splitAsinar[1]));
-            BienCategoriaDao dao = new BienCategoriaDao();
-            dao.save(bienCate);
+            int idBien = Integer.parseInt(splitAsinar[0]);
+            int idCategoria = Integer.parseInt(splitAsinar[1]);
+            BienDao dao = new BienDao();
+            Bien bien = dao.findByID(idBien);
+            CategoriaDao daoCat = new CategoriaDao();
+            Categoria categoria = daoCat.findByID(idCategoria);
+            bien.setCategoria(idCategoria);
+            bien.setCategoriaNombre(categoria.getDescripcion());
+            dao.merge(bien);
+
             return "bien";
         } catch (Exception ex) {
             return "mal";
         }
-        
+
     }
 }

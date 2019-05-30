@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 30/05/2019 12:35:38 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="activos.logic.Solicitud" table="solicitud" catalog="activos" optimistic-lock="version">
         <id name="idSolicitud" type="java.lang.Integer">
@@ -32,6 +32,5 @@
         <property name="registrador" type="string">
             <column name="registrador" length="45" not-null="true" />
         </property>
-        
     </class>
 </hibernate-mapping>

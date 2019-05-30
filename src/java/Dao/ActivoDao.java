@@ -6,7 +6,7 @@
 package Dao;
 
 import Utils.HibernateUtil;
-import activos.logic.Biencategoria;
+import activos.logic.Activo;
 import java.util.List;
 import org.hibernate.HibernateException;
 
@@ -14,10 +14,10 @@ import org.hibernate.HibernateException;
  *
  * @author grave
  */
-public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencategoria, Integer> {
+public class ActivoDao extends HibernateUtil implements IBaseDao<Activo, Integer> {
 
     @Override
-    public void save(Biencategoria obj) {
+    public void save(Activo obj) {
         try {
             iniciarOperacion();
             getSesion().save(obj);
@@ -32,7 +32,7 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
     }
 
     @Override
-    public void merge(Biencategoria obj) {
+    public void merge(Activo obj) {
         try {
             iniciarOperacion();
             getSesion().merge(obj);
@@ -46,12 +46,12 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
     }
 
     @Override
-    public Biencategoria findByID(Integer key) {
-        Biencategoria usuario = null;
+    public Activo findByID(Integer key) {
+        Activo usuario = null;
 
         try {
             iniciarOperacion();
-            usuario = (Biencategoria) getSesion().get(BienCategoriaDao.class, key);
+            usuario = (Activo) getSesion().get(Activo.class, key);
         } finally {
             getSesion().close();
         }
@@ -59,7 +59,7 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
     }
 
     @Override
-    public void delete(Biencategoria obj) {
+    public void delete(Activo obj) {
         try {
             iniciarOperacion();
             getSesion().delete(obj);
@@ -74,11 +74,11 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
     }
 
     @Override
-    public List<Biencategoria> findAll() {
+    public List<Activo> findAll() {
         try {
-            List<Biencategoria> choferes;
+            List<Activo> choferes;
             iniciarOperacion();
-            choferes = (List<Biencategoria>) getSesion().createQuery("FROM Biencategoria").list();
+            choferes = (List<Activo>) getSesion().createQuery("FROM Funcionariobien").list();
             return choferes;
         } catch (HibernateException he) {
             manejarException(he);
@@ -91,7 +91,7 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
     @Override
     public List findByQuery(String query) {
         try {
-            List<Biencategoria> choferes;
+            List<Activo> choferes;
             iniciarOperacion();
             choferes =  getSesion().createQuery(query).list();
             return choferes;
@@ -105,9 +105,9 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
 
     
     @Override
-    public List<Biencategoria> findByQueryLimit(String query, int limit ) {
+    public List<Activo> findByQueryLimit(String query, int limit ) {
         try {
-            List<Biencategoria> usuarios;
+            List<Activo> usuarios;
             iniciarOperacion();
             usuarios =  getSesion().createQuery(query).setMaxResults(limit).list();
             return usuarios;
@@ -133,4 +133,6 @@ public class BienCategoriaDao extends HibernateUtil implements IBaseDao<Biencate
         }
         
     }
+
+    
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/04/2019 05:23:57 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 30/05/2019 12:35:38 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="activos.logic.Funcionario" table="funcionario" catalog="activos" optimistic-lock="version">
-        <id name="idFuncionario" type="java.lang.Integer">
+         <id name="idFuncionario" type="java.lang.Integer">
             <column name="idFuncionario" />
             <generator class="identity" />
         </id>
@@ -20,17 +20,5 @@
         <property name="nombre" type="string">
             <column name="nombre" length="45" not-null="true" />
         </property>
-        <set name="funcionariobiens" table="funcionariobien" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Funcionario_idFuncionario" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Funcionariobien" />
-        </set>
-        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Funcionario_idFuncionario" not-null="true" />
-            </key>
-            <one-to-many class="activos.logic.Usuario" />
-        </set>
     </class>
 </hibernate-mapping>

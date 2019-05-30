@@ -77,10 +77,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Descripcion</th>
+                                    <th>Modelo</th>
                                     <th>Marca</th>
                                     <th>Precio</th>
                                     <th>Cantidad</th>
-                                    <th>Funcionario</th>
                                     <th>Estado</th>
                                     <th>Categoria</th>
                                 </tr>
@@ -114,7 +114,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <b> Asignar Categoria </b>
+                        <button type="button" class="close" onclick="cancel()" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -130,6 +131,10 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
+                        <div class="left escondida" id="divMensaje">
+                            <i class= "fas fa-exclamation-triangle btn-lg Rechazada prefix"></i>
+                            <h5 style="display: inline">Selecione una categoria primero</h5>
+                        </div>
                         <button type='button' class='btn btn-lg btn-success' aria-label='rigth Align' onclick='asignarCategoria()'>
                             <i class='fas fa-arrow-circle-right ' ></i> &nbsp;&nbsp Asignar</button>
                     </div>

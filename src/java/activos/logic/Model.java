@@ -24,7 +24,7 @@ public class Model {
     private static Map<String,Usuario> initUsuarios(){
         Map<String,Usuario> result = new HashMap<>();
         
-        result.put("207640246", new Usuario(1,207640246,"Anthony Oviedo","ADM", "Informatica","admin"));
+       // result.put("207640246", new Usuario(1,207640246,"Anthony Oviedo","ADM", "Informatica","admin"));
         
         return result;
     }    

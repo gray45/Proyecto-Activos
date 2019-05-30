@@ -45,13 +45,12 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Activos?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="activos/logic/Dependencia.hbm.xml"/>
-    <mapping resource="activos/logic/Solicitud.hbm.xml"/>
+    <mapping resource="activos/logic/Categoria.hbm.xml"/>
+    <mapping resource="activos/logic/Activo.hbm.xml"/>
+    <mapping resource="activos/logic/Funcionario.hbm.xml"/>
     <mapping resource="activos/logic/Bien.hbm.xml"/>
     <mapping resource="activos/logic/Usuario.hbm.xml"/>
-    <mapping resource="activos/logic/Funcionariobien.hbm.xml"/>
-    <mapping resource="activos/logic/Biencategoria.hbm.xml"/>
-    <mapping resource="activos/logic/Categoria.hbm.xml"/>
-    <mapping resource="activos/logic/Funcionario.hbm.xml"/>
+    <mapping resource="activos/logic/Dependencia.hbm.xml"/>
+    <mapping resource="activos/logic/Solicitud.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

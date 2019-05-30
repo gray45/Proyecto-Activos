@@ -54,7 +54,7 @@ and open the template in the editor.
                                 <i class= "fas fa-exclamation-triangle btn-lg Rechazada prefix"></i>
                                 <h5 style="display: inline">Campo Requerido</h5>
                             </div>
-                           
+
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@ and open the template in the editor.
                         <div class="escondida" id="divErrores">
                             <i  style="display: inline" class="fas fa-exclamation-triangle btn-lg Rechazada prefix "></i>
                             <h4 style="display: inline">Rellene los campos marcados con rojo</h4>
-                            
+
                         </div>
                         <br>
                     </div>
@@ -227,7 +227,7 @@ and open the template in the editor.
                     <input type="submit" onclick="agregar('Agregar Bien')" value="Agregar Bien" class="btn btn-lg btn-success">
                     <br>
                 </center>
-                
+
                 <input type="text"  id="action"  name="action"class="escondida"/>
 
                 </form>
@@ -242,15 +242,15 @@ and open the template in the editor.
                     <table class="table table-hover table-striped"> 
                         <h4>Bienes de la solicitud</h4>
                         <tr>
-                            <th>Descripcion</th><th>Marca</th><th>Precio Unitario</th><th>Cantidad</th>
+                            <th>Descripcion</th><th>Modelo</th><th>Marca</th><th>Precio Unitario</th><th>Cantidad</th>
                         </tr>
 
                         <% if (model != null) {
                                 for (Bien bien : model) {%>
                         <tr>
                             <td><%=bien.getDescripcion()%></td>
+                            <td><%=bien.getModelo()%></td>
                             <td><%=bien.getMarca()%></td>
-
                             <td><%=bien.getPrecio()%></td>
                             <td><%=bien.getCantidad()%></td>
                         </tr>   
@@ -282,8 +282,8 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-                    
-                    <div class="modal fade" id="alerModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+            <div class="modal fade" id="alerModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -326,8 +326,8 @@ and open the template in the editor.
             <% } else { %>
             <input type="text"  id="erroresBien" class="escondida" value=""/>
             <% }%>
-            
-            
+
+
         </div>
     </body>
 </html>

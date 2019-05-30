@@ -10,6 +10,7 @@ import activos.logic.Categoria;
 import java.util.List;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -36,7 +37,7 @@ public class CategoriaApi {
         return categorias;
     }
     
-      @POST
+      @PATCH
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Categoria getCategoria(@PathParam("id") String id) {
@@ -86,9 +87,9 @@ public class CategoriaApi {
     }
     
     @DELETE
-    @Path("{delete}")
+    @Path("{id}")
     @Produces({MediaType.TEXT_HTML})
-    public String delete(@PathParam("borrar") String idCategoria) {
+    public String delete(@PathParam("id") String idCategoria) {
         String respuesta = null;
         try {
             CategoriaDao categoriaDao = new CategoriaDao();

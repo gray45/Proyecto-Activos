@@ -1,9 +1,7 @@
 package activos.logic;
-// Generated 26/04/2019 05:23:55 PM by Hibernate Tools 4.3.1
+// Generated 30/05/2019 12:35:36 AM by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -118,8 +116,7 @@ public class Solicitud  implements java.io.Serializable {
     public void setRegistrador(String registrador) {
         this.registrador = registrador;
     }
-   
-
+    
 
 }
 

@@ -46,10 +46,10 @@ function dibujarFila(rowData) {
     $("#tbody").append(row);
     row.append($("<td>" + rowData.idBien + "</td>"));
     row.append($("<td>" + rowData.descripcion + "</td>"));
+    row.append($("<td>" + rowData.modelo + "</td>"));
     row.append($("<td>" + rowData.marca + "</td>"));
     row.append($("<td>" + rowData.precio + "</td>"));
     row.append($("<td>" + rowData.cantidad + "</td>"));
-    row.append($("<td>" + rowData.funcionario + "</td>"));
     row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
             + " <i class='far fa-times-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
 
@@ -175,6 +175,7 @@ function  setCategoria(id) {
 }
 
 function asignarCategoria() {
+    if( $("#idCategoria").val()!== ""){
     var asignar = $("#idBien").val() + "," + $("#idCategoria").val();
     $.ajax({
 
@@ -190,10 +191,23 @@ function asignarCategoria() {
                 $(".check").removeClass("Asignada");
                 findAllBySolicitud(1);
                 $("#modalCategoria").modal("hide");
+                 $("#idCategoria").val("");
+                 $("#divMensaje").hide();
             }
         },
         type: 'POST',
         dataType: "text"
     });
+    }
+    else{
+       $("#divMensaje").show();
+    }
+}
 
+function cancel() {
+    $("#idCategoria").val("");
+    $("#divMensaje").hide();
+     $(".check").removeClass("Asignada");
+     $("#modalCategoria").modal("hide");
+    
 }

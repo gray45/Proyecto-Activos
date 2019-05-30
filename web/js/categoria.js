@@ -124,7 +124,7 @@ function showEdit(id) {
             $("#divEdit").show("slow");
             $("#divCancel").show("slow");
         },
-        type: 'POST',
+        type: 'PATCH',
         contentType: "application/json"
     });
 
@@ -145,7 +145,7 @@ function showDelete(id) {
             $("#mensajeDelete").text("Estas seguro que quieres borrar la categoria : " + data.descripcion);
             $("#modalDelete").modal("show");
         },
-        type: 'POST',
+        type: 'PATCH',
         contentType: "application/json"
     });
 
@@ -193,9 +193,10 @@ function cancel() {
 
 function borrar() {
     $("#modalDelete").modal("hide");
+    var id = $("#idCategoria").val()
     $.ajax({
 
-        url: "api/Categoria/" + $("#idCategoria").val(),
+        url: "api/Categoria/" + id,
 
         error: function () { //si existe un error en la respuesta del ajax
             showAlert("Rechazada", "Hubo un problema al eliminar la categoria");
