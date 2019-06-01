@@ -103,7 +103,7 @@ and open the template in the editor.
                         <h4 >Agregar Bien</h4>
                         <div class="escondida" id="divErrores">
                             <i  style="display: inline" class="fas fa-exclamation-triangle btn-lg Rechazada prefix "></i>
-                            <h4 style="display: inline">Rellene los campos marcados con rojo</h4>
+                            <h4 style="display: inline">Rellene o corrija los campos marcados con rojo</h4>
 
                         </div>
                         <br>
@@ -190,10 +190,10 @@ and open the template in the editor.
                                 <% String precio = (String) request.getAttribute("precio");%>
                                 <% if (precio != null) {%>
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign" aria-hidden="true"></i></span>
-                                <input type="text" name="Precio" id="precio" value="<%=precio.toString()%>" class="form-control"/>
+                                <input type="text" name="Precio" id="precio" value="<%=precio.toString()%>" class="form-control" oninput="validateInt()"/>
                                 <% } else { %>
                                 <span class="input-group-addon"><i class="fas fa-dollar-sign" aria-hidden="true"></i></span>
-                                <input type="text" name="Precio" id="precio" class="form-control"/>
+                                <input type="text" name="Precio" id="precio" class="form-control" oninput="validateInt()"/>
                                 <% }%>
                             </div>
                         </div>
@@ -212,10 +212,10 @@ and open the template in the editor.
                                 <% String cantidad = (String) request.getAttribute("cantidad");%>
                                 <% if (cantidad != null) {%>
                                 <span class="input-group-addon "><i class="fab fa-neos" aria-hidden="true"></i></span>
-                                <input type="text" name="Cantidad" id="cantidad" value="<%=cantidad.toString()%>" class="form-control curva" />
+                                <input type="text" name="Cantidad" id="cantidad" value="<%=cantidad.toString()%>" class="form-control curva" oninput="validateInt()"/>
                                 <% } else { %>
                                 <span class="input-group-addon "><i class="fab fa-neos" aria-hidden="true"></i></span>
-                                <input type="text" name="Cantidad" id="cantidad" class="form-control curva" />
+                                <input type="text" name="Cantidad" id="cantidad" class="form-control "  oninput="validateInt()"/>
                                 <% } %>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ and open the template in the editor.
 
                 <br>
                 <center>
-                    <input type="submit" onclick="agregar('Agregar Bien')" value="Agregar Bien" class="btn btn-lg btn-success">
+                    <input type="submit" id="botonBien" onclick="agregar('Agregar Bien')" value="Agregar Bien" class="btn btn-lg btn-success">
                     <br>
                 </center>
 

@@ -8,9 +8,11 @@
 $(document).ready(function () {
     findAllBySolicitud(1);
     findAllCategoria(1);
+    findAllRegister();
 });
 function findAllBySolicitud(numPage) {
     var id = $("#idSolicitud").val();
+     setTimeout (
     $.ajax({
 
         url: "api/Bien/" + id
@@ -25,7 +27,25 @@ function findAllBySolicitud(numPage) {
         },
         type: 'GET',
         dataType: "json"
-    });
+    }), 2000); 
+}
+
+function findAllRegister() {
+     
+    $.ajax({
+
+        url: "api/DetalleBuscarRegistrador/findRegister"
+        ,
+        error: function () { //si existe un error en la respuesta del ajax
+            showAlert("Rechazada","Se presento un error a la hora de cargar la información en la base de datos");
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+            llenarAutoCompleteRegistrador(data);
+        },
+        type: 'GET',
+        dataType: "json"
+    }); 
 }
 
 function dibujarTabla(numpag, dataJson) {
@@ -51,11 +71,14 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.precio + "</td>"));
     row.append($("<td>" + rowData.cantidad + "</td>"));
     row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
-            + " <i class='far fa-times-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
-
+            + " <i class='far fa-times-circle " + rowData.estado + " ' ></i> &nbsp;&nbsp" + rowData.estado + "</button></td>"));
+if(rowData.categoriaNombre !== undefined){
+    row.append($("<td><i class='fas fa-arrow-circle-right Asignada' ></i> &nbsp;&nbsp" + rowData.categoriaNombre + "</td>"));
+}
+else{
     row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModalCategria(" + rowData.idBien + ")'>"
             + " <i class='fas fa-arrow-circle-right ' ></i> &nbsp;&nbsp Asignar</button></td>"));
-
+    }
 }
 
 
@@ -97,21 +120,30 @@ function paginador(pagAct, tam) {
 }
 
 
-function llenarAutoCompleteCategora(data) {
+function llenarAutoCompleteRegistrador(data) {
     var opcions = {
         data,
-        getValue: "descripcion",
+        getValue: function(element) {
+	                return element.nombre;
+                  },
 
         list: {
             match: {
                 enabled: true
             }
         },
-
+        template: {
+            type: "description",
+            fields: {
+                description: function(element) {
+	                return element.dependecia;
+                  }
+            }
+        },
         theme: "dark-light"
                 //gris oscuro
     };
-    $("#autoComplete").easyAutocomplete(opcions);
+    $("#quest").easyAutocomplete(opcions);
 }
 
 function mostrarModalCategria(idBien) {
@@ -210,4 +242,27 @@ function cancel() {
      $(".check").removeClass("Asignada");
      $("#modalCategoria").modal("hide");
     
+}
+
+function asignarRegistrador() {
+    //enviar los datos al api para la seleccion del registrador 
+    var solicitud = $("#idSolicitud").val();
+    var usuario = $("#quest").val();
+    var parametros = usuario + "," + solicitud;
+    $.ajax({
+
+        url: "api/DetalleBuscarRegistrador/" + parametros
+        ,
+        error: function () { //si existe un error en la respuesta del ajax
+            showAlert("Rechazada",("Se presento un error al asignar el registrador"));
+            //mostrarModal("mensajeAlert", "Error al cargar en la base de datos");
+        },
+        success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
+    if(data=== "bien"){
+             showAlert("Asignada",("Regristador asignado corretamente"));
+         }
+        },
+        type: 'POST',
+        dataType: "text"
+    });
 }

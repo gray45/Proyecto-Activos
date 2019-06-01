@@ -134,15 +134,15 @@ public class SolicitudController extends HttpServlet {
                 String query = "FROM Solicitud WHERE comprobante = '" + NumComrobante + "'";
                 List<Solicitud> solicitudes = (List<Solicitud>) dao.findByQuery(query);
                 Solicitud solicitudBase = null;
-                if(!solicitudes.isEmpty()){
-                 solicitudBase = solicitudes.get(0);
+                if (!solicitudes.isEmpty()) {
+                    solicitudBase = solicitudes.get(0);
                 }
                 if (solicitudBase == null) {
                     Boolean validate = haveData(request);
                     if (validate) {
                         try {
                             java.util.Date date = new Date();
-                            String fecha = date.getDate()+ "/" + (date.getMonth()+ 1) + "/" + Integer.toString(date.getYear()).substring(1);
+                            String fecha = date.getDate() + "/" + (date.getMonth() + 1) + "/" + Integer.toString(date.getYear()).substring(1);
                             Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
 
                             Solicitud unaSolicitud = new Solicitud(usuario.getDependencia(),
@@ -376,13 +376,25 @@ public class SolicitudController extends HttpServlet {
         if (precio.isEmpty()) {
             isEmpty[3] = "1";
         } else {
-            isEmpty[3] = "0";
+            try {
+                int parse_numero = Integer.parseInt(precio);
+                isEmpty[3] = "0";
+            } catch (Exception e) {
+                isEmpty[3] = "1";
+            }
+           
         }
 
         if (cantidad.isEmpty()) {
             isEmpty[4] = "1";
         } else {
-            isEmpty[4] = "0";
+             try {
+                int parse_numero = Integer.parseInt(cantidad);
+                isEmpty[4] = "0";
+            } catch (Exception e) {
+                isEmpty[4] = "1";
+            }
+            
         }
 
         errores = isEmpty[0] + "," + isEmpty[1] + "," + isEmpty[2] + "," + isEmpty[3] + "," + isEmpty[4];

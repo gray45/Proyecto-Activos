@@ -25,14 +25,13 @@ import javax.ws.rs.core.MediaType;
 public class BuscarRegistrador {
 
     @GET
-    @Path("{txt}")
+    @Path("{findRegister}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> listRegistradores(@PathParam("txt") String quest) {
+    public List<Usuario> listRegistradores() {
 
-        System.out.println(" input recibido " + quest);
         UsuarioDao dao = new UsuarioDao();
         String query = "FROM Usuario\n"
-                + "WHERE rol = 'Registrador' AND nombre LIKE '" + "%" + quest + "%'";
+                + "WHERE rol = 'Registrador'";
         List<Usuario> usuariosRegistradores = dao.findByQuery(query);
 
         return usuariosRegistradores;
@@ -40,7 +39,7 @@ public class BuscarRegistrador {
     
     @POST
     @Path("{parametros}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_HTML})
     public String SeleccionRegistrador(@PathParam("parametros") String parametros) {
         String[] values = parametros.split(",");
         if(values.length == 2){
@@ -48,6 +47,7 @@ public class BuscarRegistrador {
             SolicitudDao solicitudDao = new SolicitudDao(); 
             Solicitud solicitud = solicitudDao.findByID(Integer.parseInt(values[1]));
             solicitud.setRegistrador(values[0]);
+            solicitud.setEstado("Asignada");
             solicitudDao.merge(solicitud);
             
              return "bien";}

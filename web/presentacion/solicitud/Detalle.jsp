@@ -32,45 +32,94 @@
                 <div class="col-md-8 col-lg-10">
 
 
-                    <div class="col-md-4 " >
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3>Comprobante: <%= solicitud.getComprobante()%></h3>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <i class= "fas fa-hashtag Verificar btn-lg prefix"></i>
+                            <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getComprobante()%></h3></span>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div >
-                                    <h3>Fecha : <%= solicitud.getFecha()%></h3>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-calendar-alt Verificar btn-lg prefix"></i>
+                            <span class="subrayada"><h3 style="display: inline" > <%= solicitud.getFecha()%></h3></span>
+                        </div>
+                        <div class="col-md-3">
                         </div>
                     </div>
-                    <div class="col-md-4 " ></div>
 
-
-                    <% if (logged.getRol().equals("Jefe")) {%>  
-                    <script src="js/DetalleJefe.js" type="text/javascript"></script>
-                    <div class="col-md-4" id="campoSeleccionRegistrador">
-                        <h3>Seleccionar Buscador</h3>
-
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" name="quest" id="quest" class="form-control"  oninput="buscar()" placeholder="Numero de Cedula del usuario"/>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-12" id="camposDeSugerencias"  >
-
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div>
+                                <i class="fas fa-building Verificar btn-lg prefix"></i>
+                                <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getDependecia()%></h3></span>
                             </div>
                         </div>
-
-
+                        <div class="col-md-4">
+                            <div>
+                                <i class="fas fa-money-bill-wave-alt Verificar btn-lg prefix"></i>
+                                <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getTipo()%></h3></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
                     </div>
-                    <%}%>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div>
+                                <i class="fas fa-check-circle <%= solicitud.getEstado()%> btn-lg prefix"></i>
+                                <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getEstado()%></h3></span>
+                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <i class="fas fa-user Verificar btn-lg prefix"></i>
+                                <% if (!solicitud.getRegistrador().isEmpty()) {%>
+                                <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getRegistrador()%></h3></span>
+                                <% } else {%>
+                                <span class="subrayada"><h3 style="display: inline"> Sin Registrador</h3></span>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
 
+                    <div class="row">
 
+                        <div class="col-md-8">
+                            <div>
+
+                                <% if (!solicitud.getRasonRechazo().isEmpty()) {%>
+                                <i class="fas fa-exclamation-circle Rechazada btn-lg prefix"></i>
+                                <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getRasonRechazo()%></h3></span>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <% if (logged.getRol().equals("Jefe")) {%>  
+                            <script src="js/DetalleJefe.js" type="text/javascript"></script>
+                            <div id="campoSeleccionRegistrador">
+                                <h3>Seleccionar Buscador</h3>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                <button class="btn btn-md right" ><i class="fas fa-search" aria-hidden="true"></i></button>
+                                    </div >
+                                    <div class="col-md-10">
+                                <input type="text" name="quest" id="quest" class="form-control" />
+                                    </div>
+                                    </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-primary" onclick="asignarRegistrador()"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i>&nbsp;&nbsp Asignar</button>                          
+                            </div>
+                        </div>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+
+                    <br>
                     <div class="row">
                         <table class="table table-hover table-striped">
                             <thead>
@@ -100,6 +149,7 @@
                             </div>
                             <div class="col-md-7 col-lg-1"></div>
                         </div>
+                        
                         <%}%>
                     </div>
                 </div>

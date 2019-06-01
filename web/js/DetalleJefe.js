@@ -43,23 +43,6 @@ function mostrarRegistrador(registrador, where) {
     where.appendChild(div);
 }
 
-function seleccionRegistrador(usuario) {
-    //enviar los datos al api para la seleccion del registrador 
-    var solicitud = $("#idSolicitud").val();
-    var parametros = usuario + "," + solicitud;
-    console.log(parametros);
-    ajax({type: "POST",
-        url: "api/DetalleBuscarRegistrador/" + parametros,
-        contentType: "application/json",
-        success: function (registrador) {
-            var where = $("#campoSeleccionRegistrador");
-            mostrarRegistrador(registrador, where);
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
-    });
-}
 
 function row(registrador, where) {
 

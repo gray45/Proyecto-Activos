@@ -11,3 +11,5 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="js/utils.js" type="text/javascript"></script>
+<link href="css/easy-autocomplete.css" rel="stylesheet" type="text/css"/>
+<link href="css/easy-autocomplete.themes.css" rel="stylesheet" type="text/css"/>

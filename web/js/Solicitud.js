@@ -57,13 +57,12 @@ function dibujarFila(rowData) {
     row.append($("<td>" + rowData.tipo + "</td>"));
     if (rol === "Secretaria ") {
         row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' onclick='mostrarModal(" + rowData.idSolicitud + ")'>"
-                + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+                + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i> &nbsp;&nbsp " + rowData.estado + "</button></td>"));
     } else {
-        row.append($("<td><button type='button' class='btn btn-md' aria-label='rigth Align' >"
-                + " <i class='fas fa-check-circle " + rowData.estado + " ' ></i></button> &nbsp;&nbsp" + rowData.estado + "</td>"));
+        row.append($("<td><i class='fas fa-check-circle " + rowData.estado + " ' ></i> &nbsp;&nbsp" + rowData.estado + "</td>"));
     }
     row.append($('<td><button type="button" class="btn btn-md" aria-label="rigth Align"  onclick="detalle(' + rowData.idSolicitud + ')">' +
-            '<i class="fas fa-info-circle " style="color : blue;" aria-hidden="true"></i></td>'));
+            '<i class="fas fa-info-circle " style="color : blue;" aria-hidden="true"></i>&nbsp;&nbsp Detalle</td>'));
 }
 
 

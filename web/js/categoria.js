@@ -10,6 +10,7 @@ $(document).ready(function () {
 });
 
 function findAll(numPage) {
+    setTimeout (
     $.ajax({
 
         url: "api/Categoria/findAll",
@@ -27,8 +28,7 @@ function findAll(numPage) {
         },
         type: 'GET',
         contentType: "application/json"
-    });
-
+    }), 2000); 
 }
 
 function add() {
@@ -193,7 +193,7 @@ function cancel() {
 
 function borrar() {
     $("#modalDelete").modal("hide");
-    var id = $("#idCategoria").val()
+    var id = $("#idCategoria").val();
     $.ajax({
 
         url: "api/Categoria/" + id,

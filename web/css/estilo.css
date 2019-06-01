@@ -179,6 +179,10 @@ th{
     float: left;
 }
 
+.right{
+    float: right;
+}
+
 .black{
     background-color: black;
     color: white;
@@ -198,4 +202,9 @@ border: 0px solid #000000;
    -webkit-box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
 box-shadow: 10px 17px 34px -9px rgba(0,0,0,0.75);
+}
+
+.subrayada{
+     text-decoration: underline;
+    text-decoration-color: blue;
 }
