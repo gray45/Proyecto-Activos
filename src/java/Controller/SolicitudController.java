@@ -9,6 +9,7 @@ import Dao.BienDao;
 import Dao.SolicitudDao;
 import Dao.UsuarioDao;
 import activos.logic.Bien;
+import activos.logic.Model;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.io.IOException;
@@ -61,6 +62,9 @@ public class SolicitudController extends HttpServlet {
 
         if (action.equals("detalle")) {
             this.detalle(request, response);
+        }
+        if (action.equals("procesar")) {
+            this.procesarSolicitud(request, response);
         }
 
     }
@@ -382,24 +386,39 @@ public class SolicitudController extends HttpServlet {
             } catch (Exception e) {
                 isEmpty[3] = "1";
             }
-           
+
         }
 
         if (cantidad.isEmpty()) {
             isEmpty[4] = "1";
         } else {
-             try {
+            try {
                 int parse_numero = Integer.parseInt(cantidad);
                 isEmpty[4] = "0";
             } catch (Exception e) {
                 isEmpty[4] = "1";
             }
-            
+
         }
 
         errores = isEmpty[0] + "," + isEmpty[1] + "," + isEmpty[2] + "," + isEmpty[3] + "," + isEmpty[4];
 
         return errores;
+    }
+
+    private void procesarSolicitud(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String id = request.getParameter("id");
+
+        SolicitudDao dao = new SolicitudDao();
+        Solicitud solicitud = dao.findByID(Integer.parseInt(id));
+
+        List<Bien> bienes  = getBienesBySolicitud(id);
+        
+        
+        request.setAttribute("codigos", Model.generarCodigos(bienes) );
+        request.getRequestDispatcher("/presentacion/solicitud/CodigosPDF.jsp").forward(request, response);
+    
     }
 
 }

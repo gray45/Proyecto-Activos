@@ -49,4 +49,21 @@ public class Model {
         if (result==null) throw new Exception("Usuario no existe");
         return result;
     }      
+
+    public static  ArrayList<String> generarCodigos(List<Bien> bienes) {
+        ArrayList<String> codigos  = new ArrayList(){};
+        
+        //generar codigos aqui 
+        Bien b = null;
+        for (int i = 0; i < bienes.size(); i++) {
+            b = bienes.get(i);
+            for (int j = 0; j <  Integer.parseInt(b.getCantidad()); j++) {
+                String unCodigo = b.getCategoria()+"-"+ b.getIdBien()+"-"+j;
+                codigos.add(unCodigo);
+            }
+        }
+        
+        
+        return codigos;
+    }
 }

@@ -9,6 +9,7 @@ $(document).ready(function () {
     findAllBySolicitud(1);
     findAllCategoria(1);
     findAllRegister();
+    $("#btnProcesar").on("clcik",);
 });
 function findAllBySolicitud(numPage) {
     var id = $("#idSolicitud").val();

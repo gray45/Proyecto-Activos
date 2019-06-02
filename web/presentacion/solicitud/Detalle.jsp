@@ -23,7 +23,7 @@
         <% List<Bien> bienes = (List<Bien>) request.getAttribute("bienes");%>
         <h1>Detalle</h1>
         <div  class="container-fluid">
-            <input id="idSolicitud" type="text" class="escondida" value="<%=solicitud.getIdSolicitud()%>" >
+            <input id="idSolicitud" type="text" class="escondida" value="<%=solicitud. getIdSolicitud()%>" >
 
             <% if (solicitud != null) {%>
 
@@ -145,7 +145,9 @@
                         <% if (logged.getRol().equals("Registrador")) {%> 
                         <div class="row">
                             <div class="col-md-5 col-lg-1">
-                                <button type="button" class="btn btn-success" onclick="ProcesarBoton()">Procesar</button>                          
+                                <button type="button" id="btnProcesar" class="btn btn-success" onclick="window.open('Controller/SolicitudController?action=procesar&&id=<%=solicitud.getIdSolicitud()%>')" target="_blank" >Procesar Solicitud</button>  
+<!--                                <button type="button" onclick="window.open('lapaginanueva'); window.location.href = 'lapaginanueva'" target="_blank">boton</button>-->
+                                
                             </div>
                             <div class="col-md-7 col-lg-1"></div>
                         </div>
