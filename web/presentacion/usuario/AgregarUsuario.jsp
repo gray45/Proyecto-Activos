@@ -59,10 +59,10 @@
                                 <label>
                                     Rol
                                 </label>
-                                <select name="rol" class="form-control"><option value="Administrador" >Admistrador</option>
-                                    <option value="Secretaria" >Secretaria</option>
+                                <select name="rol" class="form-control"><option value="Administrador" >Admistrador de dependecias</option>
+                                    <option value="Secretaria" >Secretaria OCCB</option>
                                     <option value="Jefe" >Jefe OCCB</option>
-                                    <option value="Registrador" >Registrador</option>
+                                    <option value="Registrador" >Registrador de bienes</option>
                                     <option value="JefeRH" >Jefe de Recursos Humanos</option>
                                 </select>
 
