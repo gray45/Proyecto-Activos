@@ -61,8 +61,9 @@
                                 </label>
                                 <select name="rol" class="form-control"><option value="Administrador" >Admistrador</option>
                                     <option value="Secretaria" >Secretaria</option>
-                                    <option value="Jefe" >Jefe</option>
+                                    <option value="Jefe" >Jefe OCCB</option>
                                     <option value="Registrador" >Registrador</option>
+                                    <option value="JefeRH" >Jefe de Recursos Humanos</option>
                                 </select>
 
                             </div>

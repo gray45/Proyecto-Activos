@@ -18,7 +18,6 @@
         <%@include  file ="../../Head.jsp" %>
         <script src="js/Solicitud.js" type="text/javascript"></script>
         <title>Principal</title>
-
     </head>
     <body>
         <%@include  file ="../../Header.jsp" %>

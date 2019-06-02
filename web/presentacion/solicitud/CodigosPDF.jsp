@@ -19,6 +19,7 @@
         <script src="JsBarcode.all.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+        <link href="../../css/estilo.css" rel="stylesheet" type="text/css"/>
 
         <script type="text/javascript">
 
@@ -28,10 +29,10 @@
             function cargada() {
 
                 var codigos = getCodigos();
-                
-                for (i = 0; i < codigos.length-1; i++) {
-                    elCodigo =codigos[i].toString();
-                    JsBarcode("#c"+elCodigo,elCodigo);
+
+                for (i = 0; i < codigos.length - 1; i++) {
+                    elCodigo = codigos[i].toString();
+                    JsBarcode("#c" + elCodigo, elCodigo);
                 }
 
                 if (window.print) {
@@ -49,17 +50,17 @@
 
     </head>
     <body>
+        <div class="escondida">
+            <% List<String> codigos = (List<String>) request.getAttribute("codigos");%>
+            <%String losCodigos = "";%>
 
-        <% List<String> codigos = (List<String>) request.getAttribute("codigos");%>
-        <%String losCodigos = "";%>
-
-        <%for (int i = 0; i < codigos.size(); i++) {%>
-        <svg id="c<%=codigos.get(i)%>"></svg>     
-        <%losCodigos = losCodigos + codigos.get(i) + ",";
-            }
-        %>
-        <svg id="test"></svg>     
-        <input type="hidden"  id="codigos" value="<%=losCodigos%>"/>   
-
+            <%for (int i = 0; i < codigos.size(); i++) {%>
+            <svg id="c<%=codigos.get(i)%>"></svg>     
+            <%losCodigos = losCodigos + codigos.get(i) + ",";
+                }
+            %>
+            <svg id="test"></svg>     
+            <input type="hidden"  id="codigos" value="<%=losCodigos%>"/>   
+        </div>
     </body>
 </html>
