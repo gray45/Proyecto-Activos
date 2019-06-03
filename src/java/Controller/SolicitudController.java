@@ -153,6 +153,7 @@ public class SolicitudController extends HttpServlet {
                                     "Recibida", NumComrobante, fecha, tipo, usuario.getDependecia(), "");
 
                             dao.save(unaSolicitud);
+                             Thread.sleep(2000);
                             solicitudBase = (Solicitud) dao.findByQuery(query).get(0);
                             registrar(request, response, solicitudBase.getIdSolicitud());
 
@@ -414,7 +415,8 @@ public class SolicitudController extends HttpServlet {
         Solicitud solicitud = dao.findByID(Integer.parseInt(id));
 
         List<Bien> bienes  = getBienesBySolicitud(id);
-        
+        solicitud.setEstado("Rotulacion");
+        dao.merge(solicitud);
         
         request.setAttribute("codigos", Model.generarCodigos(bienes) );
         request.getRequestDispatcher("/presentacion/solicitud/CodigosPDF.jsp").forward(request, response);

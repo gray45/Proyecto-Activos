@@ -8,13 +8,13 @@
             <column name="codigo" length="45" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="bien" class="activos.logic.Bien" fetch="select">
+         <property name="bien" type="java.lang.Integer">
             <column name="Bien_idBien" not-null="true" />
-        </many-to-one>
-        <many-to-one name="funcionario" class="activos.logic.Funcionario" fetch="select">
-            <column name="Funcionario_idFuncionario" />
-        </many-to-one>
-        <property name="funcionarioNombre" type="string">
+        </property>
+        <property name="funcionario" type="java.lang.Integer">
+            <column name="Funcionario_idFuncionario" not-null="true" />
+        </property>
+         <property name="funcionarioNombre" type="string">
             <column name="funcionarioNombre" length="45" />
         </property>
         <property name="descripcion" type="string">

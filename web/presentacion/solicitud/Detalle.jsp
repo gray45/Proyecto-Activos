@@ -87,10 +87,11 @@
                         <div class="col-md-8">
                             <div>
 
-                                <% if (!solicitud.getRasonRechazo().isEmpty()) {%>
+                                <%if (solicitud.getRasonRechazo() != null) {
+                                    if (!solicitud.getRasonRechazo().isEmpty()) {%>
                                 <i class="fas fa-exclamation-circle Rechazada btn-lg prefix"></i>
                                 <span class="subrayada"><h3 style="display: inline"> <%= solicitud.getRasonRechazo()%></h3></span>
-                                <% } %>
+                                <% } } %>
                                 
                             </div>
                         </div>

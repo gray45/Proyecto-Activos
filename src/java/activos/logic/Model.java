@@ -7,6 +7,7 @@ package activos.logic;
  */
 
 
+import Dao.ActivoDao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +54,9 @@ public class Model {
     public static  ArrayList<String> generarCodigos(List<Bien> bienes) {
         ArrayList<String> codigos  = new ArrayList(){};
         
+        ActivoDao activoDao = new ActivoDao();
+        Activo activo = null;
+        
         //generar codigos aqui 
         Bien b = null;
         for (int i = 0; i < bienes.size(); i++) {
@@ -60,6 +64,10 @@ public class Model {
             for (int j = 0; j <  Integer.parseInt(b.getCantidad()); j++) {
                 String unCodigo = b.getCategoria()+"-"+ b.getIdBien()+"-"+j;
                 codigos.add(unCodigo);
+                activo = new Activo(unCodigo, b.getIdBien());
+                activo.setDescripcion(b.getDescripcion());
+                activo.setCategoria(b.getCategoriaNombre());
+                activoDao.save(activo);
             }
         }
         

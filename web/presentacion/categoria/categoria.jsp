@@ -50,7 +50,7 @@
                         </div>
                     </form>
                     <br>
-                    <table class="table table-hover table-striped sombra">
+                    <table class="table table-hover table-striped ">
                         <thead>
                             <tr>
                                 <th>Id</th><th>Descripcion</th><th>Action</th>

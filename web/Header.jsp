@@ -26,7 +26,7 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
             <% if (logged == null) { %>
             <li> <a  href="Controller/LoginController?action=prepareLogin">Ingresar</a> </li> 
             <li> <a  href="Controller/UsuarioController">Registrarse</a> </li>   
-            <% }%>
+                <% }%>
 
             <%  if (logged != null) {%>
 
@@ -43,12 +43,12 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
                 </ul>
             </li>
             <% } %>
-            
+
             <% if (logged.getRol().equals("JefeRH")) {%>  
             <!--Dropdown otros -->
             <li> <a href="Controller/FuncionarioController">Funcionarios</a>  </li>   
             <li> <a href="Controller/DependenciaController">Dependencias</a></li>   
-            <% } %>
+                <% } %>
 
             <% if (logged.getRol().equals("Secretaria")) {%>  
 
@@ -80,6 +80,7 @@ debe de ir alguna variable en este jsp para que cambie el nombre en el menu o he
                 <ul class="dropdown-menu">
                     <li>  <a href="Controller/SecretariaOccd/SolicitudController?action=Buscar">Buscar Solicitud</a>     </li>
                     <li>  <a href="presentacion/categoria/categoria.jsp">Categorias</a>     </li>
+                    <li>  <a href="presentacion/activo/activo.jsp">Activos</a>     </li>
 
                 </ul>
             </li>

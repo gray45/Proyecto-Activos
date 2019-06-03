@@ -220,10 +220,11 @@ function asignarCategoria() {
         },
         success: function (data) { //si todo esta correcto en la respuesta del ajax, la respuesta queda en el data
             if (data === "bien") {
+                
+                $("#modalCategoria").modal("hide");
                 showAlert("Asignada", "Se asigno corretamente la categoria");
                 $(".check").removeClass("Asignada");
                 findAllBySolicitud(1);
-                $("#modalCategoria").modal("hide");
                  $("#idCategoria").val("");
                  $("#divMensaje").hide();
             }

@@ -78,7 +78,7 @@ public class ActivoDao extends HibernateUtil implements IBaseDao<Activo, Integer
         try {
             List<Activo> choferes;
             iniciarOperacion();
-            choferes = (List<Activo>) getSesion().createQuery("FROM Funcionariobien").list();
+            choferes = (List<Activo>) getSesion().createQuery("FROM Activo").list();
             return choferes;
         } catch (HibernateException he) {
             manejarException(he);
