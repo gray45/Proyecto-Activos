@@ -8,6 +8,7 @@ package Controller;
 import Dao.SolicitudDao;
 import Utils.Utils;
 import activos.logic.Solicitud;
+import activos.logic.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,8 +56,8 @@ public class SecretariaController extends HttpServlet {
                         SolicitudDao dao = new SolicitudDao();
                         Solicitud solicitud = dao.findByID(Integer.parseInt(idSolicitud));
                         solicitud.setEstado(state);
-                        if(state.equals("Verificar")){
-                        razon = "";
+                        if (state.equals("Verificar")) {
+                            razon = "";
                         }
                         solicitud.setRasonRechazo(razon);
                         dao.merge(solicitud);
@@ -67,7 +68,17 @@ public class SecretariaController extends HttpServlet {
                         // response.setStatus(200);
                         break;
                     case "findAll":
-                        List<Solicitud> all = utils.findAll();
+                        Usuario usuario = (Usuario) request.getSession(true).getAttribute("logged");
+                        List<Solicitud> all = null;
+                        if (usuario.getRol().equals("Jefe")) {
+                            all = findVerificar();
+                        } else {
+                            if (usuario.getRol().equals("Registrador")) {
+                                all = findSolicitudByRegistrador(usuario.getNombre());
+                            } else {
+                                all = utils.findAll();
+                            }
+                        }
                         json = new Gson().toJson(all);
 
                         // response.setContentType("application/json; charset=UTF-8");
@@ -82,8 +93,8 @@ public class SecretariaController extends HttpServlet {
                         // response.setContentType("application/json; charset=UTF-8");
                         out.print(json);
                         break;
-                        
-                        case "getSolicitud":
+
+                    case "getSolicitud":
 
                         String id = request.getParameter("idSolicitud");
                         json = new Gson().toJson(getSolicitud(id));
@@ -153,9 +164,35 @@ public class SecretariaController extends HttpServlet {
         }
         return null;
     }
-    
+
+    private List<Solicitud> findVerificar() {
+        List<Solicitud> solicitudes = null;
+        SolicitudDao dao = new SolicitudDao();
+        try {
+            String query = "FROM Solicitud\n"
+                    + "WHERE estado = 'Verificar'";
+            solicitudes = dao.findByQuery(query);
+            return solicitudes;
+        } catch (Exception ex) {
+        }
+        return null;
+    }
+
+    private List<Solicitud> findSolicitudByRegistrador(String nombre) {
+        List<Solicitud> solicitudes = null;
+        SolicitudDao dao = new SolicitudDao();
+        try {
+            String query = "FROM Solicitud\n"
+                    + "WHERE estado = 'Asignada' AND registrador = '" + nombre + "'";
+            solicitudes = dao.findByQuery(query);
+            return solicitudes;
+        } catch (Exception ex) {
+        }
+        return null;
+    }
+
     private Solicitud getSolicitud(String id) {
-       Solicitud solicitud = null;
+        Solicitud solicitud = null;
         SolicitudDao dao = new SolicitudDao();
         try {
             solicitud = dao.findByID(Integer.parseInt(id));
